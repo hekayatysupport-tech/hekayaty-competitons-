@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Cinzel:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&family=Tajawal:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;600;700&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
@@ -8,17 +8,17 @@
 @theme inline {
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
-  --color-border: hsl(var(--border));
-  --color-input: hsl(var(--input));
+  --color-border: var(--border);
+  --color-input: var(--input);
   --color-ring: hsl(var(--ring));
 
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
-  --color-card-border: hsl(var(--card-border));
+  --color-card-border: var(--card-border);
 
   --color-popover: hsl(var(--popover));
   --color-popover-foreground: hsl(var(--popover-foreground));
-  --color-popover-border: hsl(var(--popover-border));
+  --color-popover-border: var(--popover-border);
 
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
@@ -50,43 +50,43 @@
 }
 
 :root, .dark {
-  --background: 240 20% 5%;
-  --foreground: 37 33% 94%;
+  --background: 40 33% 97%;
+  --foreground: 33 53% 6%;
   
-  --card: 267 40% 9%;
-  --card-foreground: 37 33% 94%;
-  --card-border: 44 53% 54% / 0.1;
+  --card: 0 0% 100%;
+  --card-foreground: 33 53% 6%;
+  --card-border: rgba(0, 0, 0, 0.08);
   
-  --popover: 240 20% 5%;
-  --popover-foreground: 37 33% 94%;
-  --popover-border: 44 53% 54% / 0.1;
+  --popover: 0 0% 100%;
+  --popover-foreground: 33 53% 6%;
+  --popover-border: rgba(0, 0, 0, 0.08);
   
-  --primary: 44 70% 60%;
-  --primary-foreground: 240 20% 5%;
-  --primary-border: 44 70% 60%;
+  --primary: 42 55% 54%;
+  --primary-foreground: 0 0% 100%;
+  --primary-border: rgba(201, 168, 76, 0.5);
   
-  --secondary: 267 64% 15%;
-  --secondary-foreground: 37 33% 94%;
-  --secondary-border: 267 64% 20%;
+  --secondary: 40 33% 90%;
+  --secondary-foreground: 35 16% 42%;
+  --secondary-border: rgba(0, 0, 0, 0.05);
   
-  --muted: 267 30% 15%;
-  --muted-foreground: 33 20% 65%;
-  --muted-border: 267 30% 25%;
+  --muted: 40 20% 90%;
+  --muted-foreground: 35 16% 42%;
+  --muted-border: rgba(0, 0, 0, 0.05);
   
-  --accent: 256 55% 24%;
-  --accent-foreground: 37 33% 94%;
-  --accent-border: 256 55% 30%;
+  --accent: 252 80% 65%;
+  --accent-foreground: 0 0% 100%;
+  --accent-border: hsl(252 80% 65% / 0.5);
   
   --destructive: 0 84% 60%;
-  --destructive-foreground: 37 33% 94%;
+  --destructive-foreground: 0 0% 100%;
   --destructive-border: 0 84% 60%;
   
-  --border: 267 30% 20%;
-  --input: 267 30% 20%;
-  --ring: 44 70% 60%;
+  --border: rgba(0, 0, 0, 0.08);
+  --input: rgba(0, 0, 0, 0.08);
+  --ring: 42 55% 54%;
   
-  --app-font-sans: 'Cairo', sans-serif;
-  --app-font-serif: 'Cinzel', serif;
+  --app-font-sans: 'Cairo', 'Tajawal', 'Inter', sans-serif;
+  --app-font-serif: 'Cinzel', 'Inter', serif;
   
   --radius: 0.75rem;
 }
@@ -101,4 +101,32 @@
   .font-serif {
     font-family: var(--app-font-serif);
   }
+}
+
+.gold-gradient { background: linear-gradient(135deg, #C9A84C 0%, #F0C76E 50%, #B8943E 100%); }
+.gold-text { background: linear-gradient(135deg, #B8943E, #F0C76E); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.glass-card { background: rgba(255,255,255,0.7); backdrop-filter: blur(20px); border: 1px solid rgba(201,168,76,0.15); }
+.luxury-shadow { box-shadow: 0 4px 32px rgba(201,168,76,0.12), 0 1px 3px rgba(0,0,0,0.05); }
+.lavender-section { background: hsl(252, 60%, 97%); }
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.shimmer-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: translateX(-100%);
+  animation: shimmer 3s infinite ease-in-out;
 }

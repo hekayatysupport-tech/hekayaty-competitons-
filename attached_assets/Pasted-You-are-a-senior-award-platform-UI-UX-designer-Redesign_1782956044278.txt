@@ -1,0 +1,147 @@
+You are a senior award-platform UI/UX designer.
+
+Redesign and upgrade the entire frontend appearance of the existing "Hekayaty Awards 2026 Registration" website without changing any functionality, routes, forms, localStorage logic, registration flow, dashboard logic, admin logic, or PDF generation.
+
+Your task is ONLY to improve the visual design, user experience, spacing, typography, animations, and premium feeling.
+
+Design Direction:
+
+Create a modern luxury award-event aesthetic that feels elegant, trustworthy, magical, and welcoming.
+
+Avoid overly dark interfaces.
+
+Replace the heavy black theme with a light premium theme.
+
+Color Palette:
+
+* Warm Ivory (#FAF8F4)
+* Soft White (#FFFFFF)
+* Champagne Gold
+* Light Gold gradients
+* Elegant Purple accents
+* Soft Lavender backgrounds
+* Very subtle dark text
+* Premium glowing highlights
+
+Visual Style:
+
+* Apple-level polish
+* Luxury event website
+* Premium awards ceremony feeling
+* Modern SaaS quality UI
+* Cinematic but clean
+* High-end typography
+* Large whitespace
+* Elegant glassmorphism
+* Soft shadows
+* Smooth gradients
+* Floating decorative elements
+
+Improve:
+
+1. Landing Page
+
+* Create a stunning hero section
+* Add animated background glow effects
+* Add floating particles
+* Add premium award trophy illustrations
+* Improve section transitions
+* Add elegant scroll animations
+* Improve sponsors presentation
+* Make awards cards more luxurious
+* Add timeline cards with premium styling
+* Improve FAQ accordion design
+
+2. Registration Page
+
+* Convert the form into a premium multi-step experience
+* Better spacing
+* Beautiful input fields
+* Floating labels
+* Validation states
+* Success indicators
+* Progress stepper
+
+3. Payment Page
+
+* Premium payment summary card
+* Better visual hierarchy
+* Trust indicators
+* Secure payment badges
+* Elegant fee presentation
+* Animated confirmation flow
+
+4. Success Page
+
+* Celebration animation
+* Elegant success card
+* Animated registration code reveal
+* Premium receipt download section
+* Confetti effect
+
+5. Dashboard
+
+* Modern user dashboard
+* Beautiful statistics cards
+* Status badges
+* Premium tables
+* Better mobile layout
+* Elegant profile section
+
+6. Admin Panel
+
+* Professional management dashboard
+* Advanced search appearance
+* Modern table design
+* Better status controls
+* Analytics cards
+* Premium admin experience
+
+Typography:
+
+Use elegant modern fonts.
+
+Arabic:
+
+* Cairo
+* Tajawal
+
+English:
+
+* Inter
+
+Animations:
+
+* Framer Motion
+* Smooth page transitions
+* Hover effects
+* Card lift effects
+* Micro interactions
+* Fade-in sections
+* Animated counters
+* Loading skeletons
+
+Responsive:
+
+Make every page look excellent on:
+
+* Mobile
+* Tablet
+* Desktop
+* Ultra-wide screens
+
+Accessibility:
+
+* Proper contrast
+* Clear focus states
+* Keyboard accessibility
+
+Important:
+
+DO NOT change business logic.
+DO NOT change forms.
+DO NOT change localStorage implementation.
+DO NOT change registration code generation.
+DO NOT modify data structures.
+
+Focus only on creating a world-class premium UI/UX experience that feels like a luxury international awards event.
