@@ -1,0 +1,108 @@
+Build a modern premium frontend-only website called "Hekayaty Awards 2026 Registration".
+
+The purpose of this website is ONLY to register writers and collect payment before they participate in the competition. This website is completely separate from the main Hekayaty platform.
+
+Design Style:
+- Cinematic
+- Black + Gold + Deep Purple
+- Premium luxury UI
+- Responsive
+- Arabic RTL with optional English support
+- Smooth animations
+- Glassmorphism cards
+- Beautiful gradients and glowing effects
+
+Pages:
+
+1. Landing Page
+- Hero section introducing Hekayaty Awards 2026
+- Competition description
+- Sponsors section
+- Awards section
+- Timeline
+- FAQ
+- Registration button
+
+2. Registration Page
+Collect:
+- Full Name
+- Email
+- Phone Number
+- City
+- Pen Name (optional)
+- Story Name
+- Story Category
+- Agreement Checkbox
+
+3. Payment Page
+Display:
+- Registration Fee
+- Payment methods (Paymob placeholder)
+- Payment instructions
+
+After clicking "Continue to Payment":
+Generate a UNIQUE Registration Code automatically.
+
+Example:
+HKA-2026-0001
+HKA-2026-0002
+HKA-2026-0003
+
+The code must appear on:
+- Success Screen
+- User Dashboard
+- Download Receipt
+
+4. Success Page
+Show:
+✅ Registration Completed
+Registration Code
+Writer Information
+Payment Status:
+Pending Verification
+
+Allow downloading a Registration Receipt PDF.
+
+5. Dashboard
+Display:
+Registration Code
+Writer Name
+Email
+Story Name
+Payment Status
+Registration Date
+
+Admin Demo Panel (Frontend Only)
+
+Create an Admin page with fake data to simulate backend.
+
+The admin can:
+- View all registrations
+- Search by Registration Code
+- Search by Email
+- Search by Phone
+- Mark payment as:
+Pending
+Verified
+Rejected
+
+When payment becomes Verified, show:
+"Your registration has been successfully confirmed."
+
+Technical Requirements:
+- React + Vite
+- TailwindCSS
+- Component based architecture
+- Clean folder structure
+- LocalStorage to simulate database
+- UUID for unique IDs
+- Beautiful loading animations
+- Toast notifications
+- Form validation
+- PDF receipt generation
+- Fully responsive
+
+Important:
+Do NOT build a backend.
+Everything should work using LocalStorage only.
+Structure the project so a real backend (Supabase + Paymob API) can be connected later without changing the frontend.
