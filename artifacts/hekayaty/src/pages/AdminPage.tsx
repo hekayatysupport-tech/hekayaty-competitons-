@@ -67,34 +67,43 @@ export function AdminPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-[calc(100vh-80px)] flex items-center justify-center p-4 bg-background">
+      <div className="min-h-[calc(100vh-80px)] flex items-center justify-center p-4 section-dark overflow-hidden relative">
+        <div className="absolute inset-0 aurora-bg opacity-50" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
+        
+        {/* Floating particles */}
+        {[...Array(10)].map((_, i) => (
+          <div key={`p-${i}`} className="absolute rounded-full bg-primary float" 
+               style={{ width: Math.random()*3+1, height: Math.random()*3+1, left: `${Math.random()*100}%`, top: `${Math.random()*100}%`, animationDelay: `${Math.random()*5}s`, opacity: 0.3 }} />
+        ))}
+
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-md bg-white border border-black/5 p-10 rounded-[2.5rem] text-center luxury-shadow"
+          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          className="w-full max-w-md glass-card p-12 rounded-[3rem] text-center glow-gold relative z-10"
         >
-          <div className="w-20 h-20 bg-background rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner border border-black/5">
-            <Lock className="w-8 h-8 text-primary" strokeWidth={1.5} />
+          <div className="w-24 h-24 bg-primary/10 border border-primary/20 rounded-full flex items-center justify-center mx-auto mb-10 shadow-[0_0_30px_rgba(201,168,76,0.2)]">
+            <Lock className="w-10 h-10 text-primary animate-pulse" strokeWidth={1.5} />
           </div>
-          <h1 className="text-3xl font-bold mb-3 text-foreground">بوابة الإدارة</h1>
-          <p className="text-muted-foreground mb-10 text-sm">أدخل رمز المرور للوصول إلى بيانات المسابقة (1234)</p>
+          <h1 className="text-4xl font-black mb-4 text-foreground font-serif tracking-wide">بوابة الإدارة</h1>
+          <p className="text-muted-foreground mb-12 text-sm uppercase tracking-widest font-bold">الوصول المصرح فقط (1234)</p>
           
-          <form onSubmit={handleLogin} className="space-y-6">
+          <form onSubmit={handleLogin} className="space-y-8">
             <input
               type="password"
               value={pin}
               onChange={(e) => setPin(e.target.value)}
               placeholder="••••"
-              className="w-full bg-background border border-black/10 rounded-2xl px-4 py-5 text-center text-3xl tracking-[1em] focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-foreground font-mono"
+              className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-6 text-center text-4xl tracking-[1em] focus:outline-none focus:border-primary/60 focus:ring-2 focus:ring-primary/20 transition-all text-primary font-mono shadow-inner"
               autoFocus
               dir="ltr"
             />
             <button 
               type="submit"
-              className="w-full py-5 gold-gradient text-white font-bold text-lg rounded-2xl shadow-[0_8px_20px_rgba(201,168,76,0.2)] hover:shadow-[0_8px_30px_rgba(201,168,76,0.3)] transition-all flex items-center justify-center gap-2"
+              className="w-full py-6 gold-gradient text-primary-foreground font-bold text-xl rounded-2xl shadow-[0_0_20px_rgba(201,168,76,0.3)] hover:shadow-[0_0_30px_rgba(201,168,76,0.5)] transition-all flex items-center justify-center gap-3 shimmer-button"
             >
               دخول
-              <ArrowUpRight className="w-5 h-5" />
+              <ArrowUpRight className="w-6 h-6" />
             </button>
           </form>
         </motion.div>
@@ -103,74 +112,76 @@ export function AdminPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-80px)] py-12 px-4 md:px-8 bg-background">
-      <div className="max-w-7xl mx-auto space-y-10">
+    <div className="min-h-[calc(100vh-80px)] py-16 px-4 md:px-8 section-dark">
+      <div className="max-w-7xl mx-auto space-y-12">
         
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-2">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-4">
           <div>
-            <h1 className="text-3xl font-bold flex items-center gap-3 text-foreground">
-              <Shield className="w-8 h-8 text-primary" strokeWidth={1.5} />
+            <h1 className="text-4xl font-black flex items-center gap-4 text-foreground font-serif">
+              <div className="p-3 bg-primary/10 rounded-2xl border border-primary/20 glow-gold">
+                <Shield className="w-8 h-8 text-primary" strokeWidth={1.5} />
+              </div>
               إدارة التسجيلات
             </h1>
-            <p className="text-muted-foreground mt-2">نظرة عامة على المتسابقين المسجلين في دورة 2026</p>
+            <p className="text-muted-foreground mt-4 text-lg">نظرة عامة على المتسابقين المسجلين في دورة 2026</p>
           </div>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
-            { label: 'إجمالي التسجيلات', value: stats.total, icon: <Users className="w-5 h-5 text-primary" />, color: 'text-foreground' },
-            { label: 'قيد المراجعة', value: stats.pending, icon: <Clock className="w-5 h-5 text-amber-500" />, color: 'text-amber-600' },
-            { label: 'تم التحقق', value: stats.verified, icon: <CheckCircle className="w-5 h-5 text-emerald-500" />, color: 'text-emerald-600' },
-            { label: 'مرفوض', value: stats.rejected, icon: <XCircle className="w-5 h-5 text-rose-500" />, color: 'text-rose-600' },
+            { label: 'إجمالي التسجيلات', value: stats.total, icon: <Users className="w-6 h-6 text-primary" />, color: 'gold-text', glow: 'glow-gold', border: 'border-primary/20' },
+            { label: 'قيد المراجعة', value: stats.pending, icon: <Clock className="w-6 h-6 text-amber-400" />, color: 'text-amber-400', glow: 'shadow-[0_0_20px_rgba(251,191,36,0.1)]', border: 'border-amber-400/20' },
+            { label: 'تم التحقق', value: stats.verified, icon: <CheckCircle className="w-6 h-6 text-[#34d399]" />, color: 'text-[#34d399]', glow: 'shadow-[0_0_20px_rgba(52,211,153,0.1)]', border: 'border-[#34d399]/20' },
+            { label: 'مرفوض', value: stats.rejected, icon: <XCircle className="w-6 h-6 text-rose-400" />, color: 'text-rose-400', glow: 'shadow-[0_0_20px_rgba(244,63,94,0.1)]', border: 'border-rose-400/20' },
           ].map((stat, i) => (
-            <div key={i} className="bg-white border border-black/5 rounded-3xl p-6 luxury-shadow flex flex-col justify-between relative overflow-hidden">
-              <div className="absolute -right-4 -top-4 w-20 h-20 bg-background rounded-full opacity-50" />
-              <div className="flex items-center gap-3 mb-4 relative z-10">
-                <div className="p-2 bg-background rounded-xl border border-black/5">
+            <div key={i} className={`glass-card border ${stat.border} rounded-3xl p-8 ${stat.glow} flex flex-col justify-between relative overflow-hidden`}>
+              <div className="absolute -right-4 -top-4 w-24 h-24 bg-white/5 rounded-full opacity-30" />
+              <div className="flex items-center gap-4 mb-6 relative z-10">
+                <div className="p-3 bg-black/40 rounded-2xl border border-white/5">
                   {stat.icon}
                 </div>
-                <p className="text-sm font-bold text-muted-foreground">{stat.label}</p>
+                <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest">{stat.label}</p>
               </div>
-              <p className={`text-4xl font-black font-serif ${stat.color} relative z-10`}>{stat.value}</p>
+              <p className={`text-5xl font-black font-serif ${stat.color} relative z-10 drop-shadow-md`}>{stat.value}</p>
             </div>
           ))}
         </div>
 
         {/* Toolbar */}
-        <div className="flex flex-col md:flex-row gap-4 bg-white p-4 rounded-2xl border border-black/5 luxury-shadow">
+        <div className="flex flex-col md:flex-row gap-5 glass-card p-5 rounded-[2rem] border-white/10 luxury-shadow">
           <div className="relative flex-1">
-            <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <Search className="absolute right-5 top-1/2 -translate-y-1/2 w-6 h-6 text-muted-foreground" />
             <input 
               type="text" 
               placeholder="بحث بالاسم، الكود، الإيميل، أو الهاتف..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-background border border-black/5 rounded-xl py-4 pr-12 pl-4 text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all text-sm font-medium"
+              className="w-full bg-black/40 border border-white/10 rounded-2xl py-5 pr-16 pl-6 text-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all text-lg font-medium shadow-inner"
             />
           </div>
-          <button className="flex items-center justify-center gap-2 px-8 py-4 bg-background border border-black/5 rounded-xl hover:bg-black/5 transition-colors font-bold text-foreground">
+          <button className="flex items-center justify-center gap-3 px-10 py-5 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition-colors font-bold text-foreground">
             <Filter className="w-5 h-5" />
             تصفية
           </button>
         </div>
 
         {/* Table */}
-        <div className="bg-white border border-black/5 rounded-[2rem] overflow-hidden luxury-shadow">
+        <div className="glass-card rounded-[2.5rem] overflow-hidden luxury-shadow border-white/10">
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-right">
-              <thead className="text-xs text-muted-foreground uppercase bg-background border-b border-black/5">
+              <thead className="text-xs text-primary/60 uppercase tracking-[0.2em] section-elevated border-b border-white/10">
                 <tr>
-                  <th className="px-8 py-5 font-bold tracking-wider">الكود</th>
-                  <th className="px-8 py-5 font-bold tracking-wider">الاسم</th>
-                  <th className="px-8 py-5 font-bold tracking-wider">الاتصال</th>
-                  <th className="px-8 py-5 font-bold tracking-wider">القصة / التصنيف</th>
-                  <th className="px-8 py-5 font-bold tracking-wider">التاريخ</th>
-                  <th className="px-8 py-5 font-bold tracking-wider">الحالة</th>
-                  <th className="px-8 py-5 font-bold tracking-wider text-center">الإجراء</th>
+                  <th className="px-8 py-6 font-bold">الكود</th>
+                  <th className="px-8 py-6 font-bold">الاسم</th>
+                  <th className="px-8 py-6 font-bold">الاتصال</th>
+                  <th className="px-8 py-6 font-bold">القصة / التصنيف</th>
+                  <th className="px-8 py-6 font-bold">التاريخ</th>
+                  <th className="px-8 py-6 font-bold">الحالة</th>
+                  <th className="px-8 py-6 font-bold text-center">الإجراء</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-black/5">
+              <tbody className="divide-y divide-white/5">
                 <AnimatePresence>
                   {filteredRegs.map((reg) => (
                     <motion.tr 
@@ -178,51 +189,51 @@ export function AdminPage() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="hover:bg-background transition-colors"
+                      className="hover:bg-white/5 transition-colors"
                     >
-                      <td className="px-8 py-5 font-serif font-bold text-primary tracking-wider whitespace-nowrap" dir="ltr">{reg.code}</td>
-                      <td className="px-8 py-5">
-                        <div className="font-bold text-foreground whitespace-nowrap">{reg.name}</div>
-                        {reg.penName && <div className="text-xs text-muted-foreground mt-1 bg-black/5 inline-block px-2 py-0.5 rounded">مستعار: {reg.penName}</div>}
+                      <td className="px-8 py-6 font-serif font-black gold-text tracking-widest whitespace-nowrap" dir="ltr">{reg.code}</td>
+                      <td className="px-8 py-6">
+                        <div className="font-bold text-foreground text-lg whitespace-nowrap">{reg.name}</div>
+                        {reg.penName && <div className="text-xs text-primary/80 mt-2 bg-primary/10 border border-primary/20 inline-block px-2.5 py-1 rounded-md">مستعار: {reg.penName}</div>}
                       </td>
-                      <td className="px-8 py-5 text-muted-foreground">
+                      <td className="px-8 py-6 text-muted-foreground">
                         <div dir="ltr" className="text-right font-medium text-foreground whitespace-nowrap">{reg.phone}</div>
-                        <div className="text-xs mt-1 whitespace-nowrap">{reg.email}</div>
+                        <div className="text-xs mt-1 whitespace-nowrap opacity-70">{reg.email}</div>
                       </td>
-                      <td className="px-8 py-5">
-                        <div className="font-bold text-foreground font-serif whitespace-nowrap">{reg.storyName}</div>
-                        <div className="text-xs text-primary font-bold mt-1 bg-primary/10 inline-block px-2 py-0.5 rounded-full whitespace-nowrap">{reg.category}</div>
+                      <td className="px-8 py-6">
+                        <div className="font-bold text-foreground font-serif text-lg whitespace-nowrap">{reg.storyName}</div>
+                        <div className="text-xs text-primary font-bold mt-2 bg-primary/10 border border-primary/20 inline-block px-3 py-1 rounded-full whitespace-nowrap">{reg.category}</div>
                       </td>
-                      <td className="px-8 py-5 text-muted-foreground font-medium whitespace-nowrap" dir="ltr">
+                      <td className="px-8 py-6 text-muted-foreground font-medium whitespace-nowrap opacity-80" dir="ltr">
                         {new Date(reg.registeredAt).toLocaleDateString('en-GB')}
                       </td>
-                      <td className="px-8 py-5 whitespace-nowrap">
-                        {reg.paymentStatus === 'pending' && <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-100 text-amber-700 text-xs font-bold shadow-sm"><Clock className="w-3.5 h-3.5"/> قيد المراجعة</span>}
-                        {reg.paymentStatus === 'verified' && <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-xs font-bold shadow-sm"><CheckCircle className="w-3.5 h-3.5"/> تم التحقق</span>}
-                        {reg.paymentStatus === 'rejected' && <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-rose-50 border border-rose-100 text-rose-700 text-xs font-bold shadow-sm"><XCircle className="w-3.5 h-3.5"/> مرفوض</span>}
+                      <td className="px-8 py-6 whitespace-nowrap">
+                        {reg.paymentStatus === 'pending' && <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold shadow-[0_0_10px_rgba(251,191,36,0.1)]"><Clock className="w-4 h-4"/> قيد المراجعة</span>}
+                        {reg.paymentStatus === 'verified' && <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#34d399]/10 border border-[#34d399]/20 text-[#34d399] text-xs font-bold shadow-[0_0_10px_rgba(52,211,153,0.1)]"><CheckCircle className="w-4 h-4"/> تم التحقق</span>}
+                        {reg.paymentStatus === 'rejected' && <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-bold shadow-[0_0_10px_rgba(244,63,94,0.1)]"><XCircle className="w-4 h-4"/> مرفوض</span>}
                       </td>
-                      <td className="px-8 py-5 text-center">
+                      <td className="px-8 py-6 text-center">
                         <DropdownMenu>
-                          <DropdownMenuTrigger className="p-2.5 hover:bg-black/5 rounded-xl transition-colors outline-none focus:ring-2 focus:ring-primary/20">
-                            <MoreVertical className="w-5 h-5 text-foreground" />
+                          <DropdownMenuTrigger className="p-3 hover:bg-white/10 rounded-2xl transition-colors outline-none focus:ring-2 focus:ring-primary/30 text-foreground">
+                            <MoreVertical className="w-5 h-5" />
                           </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end" className="w-48 bg-white border-black/5 shadow-xl rounded-xl p-2 text-right">
+                          <DropdownMenuContent align="end" className="w-48 bg-[#0a0a0f]/95 backdrop-blur-xl border-primary/20 shadow-[0_10px_40px_rgba(0,0,0,0.5)] rounded-2xl p-2 text-right z-50">
                             <DropdownMenuItem 
-                              className="cursor-pointer focus:bg-amber-50 focus:text-amber-700 flex items-center justify-end gap-3 rounded-lg py-2.5 font-bold"
+                              className="cursor-pointer focus:bg-amber-500/10 focus:text-amber-400 text-foreground flex items-center justify-end gap-3 rounded-xl py-3 font-bold transition-colors"
                               onClick={() => handleStatusChange(reg.code, 'pending')}
                             >
                               قيد المراجعة
                               <Clock className="w-4 h-4 text-amber-500" />
                             </DropdownMenuItem>
                             <DropdownMenuItem 
-                              className="cursor-pointer focus:bg-emerald-50 focus:text-emerald-700 flex items-center justify-end gap-3 rounded-lg py-2.5 font-bold mt-1"
+                              className="cursor-pointer focus:bg-[#34d399]/10 focus:text-[#34d399] text-foreground flex items-center justify-end gap-3 rounded-xl py-3 font-bold mt-1 transition-colors"
                               onClick={() => handleStatusChange(reg.code, 'verified')}
                             >
                               تم التحقق
-                              <CheckCircle className="w-4 h-4 text-emerald-500" />
+                              <CheckCircle className="w-4 h-4 text-[#34d399]" />
                             </DropdownMenuItem>
                             <DropdownMenuItem 
-                              className="cursor-pointer focus:bg-rose-50 focus:text-rose-700 flex items-center justify-end gap-3 rounded-lg py-2.5 font-bold mt-1"
+                              className="cursor-pointer focus:bg-rose-500/10 focus:text-rose-400 text-foreground flex items-center justify-end gap-3 rounded-xl py-3 font-bold mt-1 transition-colors"
                               onClick={() => handleStatusChange(reg.code, 'rejected')}
                             >
                               مرفوض
@@ -237,7 +248,7 @@ export function AdminPage() {
                 
                 {filteredRegs.length === 0 && (
                   <tr>
-                    <td colSpan={7} className="px-8 py-16 text-center text-muted-foreground font-medium">
+                    <td colSpan={7} className="px-8 py-20 text-center text-muted-foreground font-medium text-lg">
                       لا توجد تسجيلات مطابقة للبحث.
                     </td>
                   </tr>

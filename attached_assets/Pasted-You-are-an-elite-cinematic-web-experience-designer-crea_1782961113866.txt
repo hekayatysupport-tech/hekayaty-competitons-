@@ -1,0 +1,294 @@
+You are an elite cinematic web experience designer, creative director, and award-show visual artist.
+
+Transform the existing Hekayaty Awards 2026 Registration website into a breathtaking cinematic experience that creates an immediate WOW effect from the first second a visitor enters the website.
+
+Do NOT change any functionality, forms, registration flow, dashboard logic, payment logic, localStorage implementation, receipt generation, or admin functionality.
+
+Your mission is to completely elevate the visual experience and atmosphere.
+
+The website should feel like:
+
+* A futuristic 2026 international awards ceremony
+* A magical cinematic universe
+* A premium entertainment event
+* A blend of fantasy, technology, storytelling, and luxury
+* Something visitors have never seen before
+
+Visual Direction:
+
+Imagine a fusion of:
+
+* Hollywood award ceremonies
+* Futuristic cinematic technology
+* Magical storytelling worlds
+* Luxury event experiences
+* High-end game launch websites
+* Unreal Engine 5 showcase websites
+
+The website should feel alive.
+
+Create depth, movement, atmosphere, and scale.
+
+====================================
+GLOBAL VISUAL EXPERIENCE
+========================
+
+Create a multi-layer cinematic environment with:
+
+* Massive 3D depth feeling
+* Floating golden particles
+* Volumetric light rays
+* Animated magical dust
+* Soft cinematic fog
+* Glowing energy effects
+* Moving light streaks
+* Aurora-style magical gradients
+* Cinematic lens flare effects
+* Dynamic atmospheric lighting
+
+The page should feel like a giant magical stage floating between worlds.
+
+====================================
+HERO SECTION
+============
+
+Completely redesign the hero section.
+
+Create a spectacular cinematic scene:
+
+At the center:
+
+A gigantic magical golden award trophy floating in the air.
+
+Behind it:
+
+A massive portal of stories.
+
+Inside the portal:
+
+Glimpses of different worlds:
+
+* Ancient Egypt
+* Arabian fantasy
+* Futuristic cities
+* Medieval kingdoms
+* Magical libraries
+* Floating islands
+
+All worlds should appear as subtle visual fragments inside the portal.
+
+Add:
+
+* Floating books
+* Golden pages flying through the air
+* Magical symbols
+* Story energy streams
+* Cinematic lighting
+
+The hero should feel like a movie poster combined with a AAA game launch trailer.
+
+====================================
+3D FEELING
+==========
+
+Create strong depth effects.
+
+Use:
+
+* Layered backgrounds
+* Parallax scrolling
+* Multi-speed movement
+* Floating elements
+* Mouse-responsive movement
+* Depth shadows
+* Perspective transforms
+
+The user should feel that elements exist in a 3D world.
+
+====================================
+2026 FUTURE VIBES
+=================
+
+Add futuristic premium elements:
+
+* Holographic panels
+* Glass interfaces
+* Energy borders
+* Dynamic glowing frames
+* Futuristic typography accents
+* Smart animated highlights
+* Digital particles
+* Interactive light effects
+
+The website should feel futuristic without looking like a sci-fi dashboard.
+
+It must still feel magical and elegant.
+
+====================================
+SECTION TRANSITIONS
+===================
+
+Every section transition should feel cinematic.
+
+Examples:
+
+* Light burst transitions
+* Portal reveal effects
+* Story pages opening
+* Golden energy sweeps
+* Magical particle explosions
+* Floating fog transitions
+
+Scrolling should feel like progressing through a movie.
+
+====================================
+AWARDS SECTION
+==============
+
+Turn award cards into cinematic artifacts.
+
+Each card should feel like a legendary relic.
+
+Add:
+
+* Golden glowing edges
+* Floating animation
+* Magical aura
+* Depth lighting
+* Interactive hover effects
+
+When hovering:
+
+The card slightly rises.
+
+Particles appear.
+
+Light moves across the surface.
+
+====================================
+TIMELINE
+========
+
+Transform the timeline into a magical journey.
+
+Create:
+
+* A glowing path of light
+* Floating milestones
+* Animated progression
+* Cinematic reveals
+
+Each milestone should feel like a chapter in an epic story.
+
+====================================
+REGISTRATION PAGE
+=================
+
+The registration page should feel like entering a sacred hall of legends.
+
+Add:
+
+* Magical glowing frame
+* Floating lights
+* Elegant cinematic atmosphere
+* Animated background depth
+* Premium form presentation
+
+The form should feel prestigious and important.
+
+====================================
+PAYMENT PAGE
+============
+
+The payment page should feel secure and luxurious.
+
+Create:
+
+* Golden energy borders
+* Premium payment chamber aesthetic
+* Elegant futuristic design
+* Floating confirmation effects
+
+====================================
+SUCCESS PAGE
+============
+
+Make the success page unforgettable.
+
+When registration succeeds:
+
+Create a cinematic celebration.
+
+Include:
+
+* Golden particle explosion
+* Light rays
+* Floating energy rings
+* Animated registration code reveal
+* Magical glow effects
+
+The registration code should feel like receiving a legendary award invitation.
+
+====================================
+DASHBOARD
+=========
+
+Transform the dashboard into a premium command center.
+
+Style:
+
+* Futuristic luxury
+* Glassmorphism
+* Cinematic depth
+* Elegant status indicators
+* Floating cards
+
+Everything should feel high-value and exclusive.
+
+====================================
+ANIMATIONS
+==========
+
+Use advanced animations:
+
+* Framer Motion
+* Smooth reveals
+* Cinematic entrances
+* Parallax effects
+* Floating effects
+* Light sweeps
+* Hover interactions
+* Depth transitions
+
+Animations should feel premium and smooth.
+
+Never excessive.
+
+====================================
+PERFORMANCE
+===========
+
+Despite the cinematic visuals:
+
+* Maintain excellent performance
+* Avoid lag
+* Optimize animations
+* Keep responsiveness smooth
+
+====================================
+IMPORTANT
+=========
+
+Do NOT modify business logic.
+
+Do NOT modify forms.
+
+Do NOT modify localStorage.
+
+Do NOT modify registration code generation.
+
+Do NOT modify dashboard functionality.
+
+Do NOT modify admin functionality.
+
+Only transform the visual experience into a world-class cinematic, magical, futuristic 2026 awards event website that instantly creates awe, emotion, prestige, and a strong WOW effect.

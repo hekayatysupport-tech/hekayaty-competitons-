@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRegistrations, Registration } from '@/hooks/useRegistrations';
+import { useRegistrations, Registration, PaymentStatus } from '@/hooks/useRegistrations';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, AlertCircle, CheckCircle, Clock, XCircle, Feather, BookOpen, MapPin, Ticket } from 'lucide-react';
 
@@ -23,68 +23,76 @@ export function DashboardPage() {
     setHasSearched(true);
   };
 
-  const getStatusDisplay = (status: string) => {
+  const getStatusDisplay = (status: PaymentStatus) => {
     switch (status) {
       case 'verified':
         return {
-          color: 'text-emerald-700',
-          bg: 'bg-emerald-50',
-          border: 'border-emerald-200',
-          icon: <CheckCircle className="w-5 h-5 text-emerald-500" />,
+          color: 'text-[#34d399]',
+          bg: 'bg-[#34d399]/10',
+          border: 'border-[#34d399]/30',
+          shadow: 'shadow-[0_0_15px_rgba(52,211,153,0.2)]',
+          icon: <CheckCircle className="w-5 h-5 text-[#34d399]" />,
           text: 'تم التأكيد'
         };
       case 'rejected':
         return {
-          color: 'text-rose-700',
-          bg: 'bg-rose-50',
-          border: 'border-rose-200',
-          icon: <XCircle className="w-5 h-5 text-rose-500" />,
+          color: 'text-rose-400',
+          bg: 'bg-rose-500/10',
+          border: 'border-rose-500/30',
+          shadow: 'shadow-[0_0_15px_rgba(244,63,94,0.2)]',
+          icon: <XCircle className="w-5 h-5 text-rose-400" />,
           text: 'مرفوض'
         };
       case 'pending':
       default:
         return {
-          color: 'text-amber-700',
-          bg: 'bg-amber-50',
-          border: 'border-amber-200',
-          icon: <Clock className="w-5 h-5 text-amber-500" />,
+          color: 'text-amber-400',
+          bg: 'bg-amber-500/10',
+          border: 'border-amber-500/30',
+          shadow: 'shadow-[0_0_15px_rgba(251,191,36,0.2)]',
+          icon: <Clock className="w-5 h-5 text-amber-400" />,
           text: 'قيد المراجعة'
         };
     }
   };
 
   return (
-    <div className="min-h-[calc(100vh-80px)] py-20 px-4 relative bg-background">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-[calc(100vh-80px)] py-20 px-4 relative section-dark overflow-hidden">
+      {/* Background Aurora */}
+      <div className="absolute top-0 left-0 right-0 h-[500px] aurora-bg opacity-30 pointer-events-none" />
+      
+      <div className="max-w-4xl mx-auto relative z-10">
         
         <div className="text-center mb-16">
-          <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 luxury-shadow">
+          <div className="w-24 h-24 rounded-full border border-primary/20 bg-primary/5 flex items-center justify-center mx-auto mb-8 glow-gold">
             <Ticket className="w-10 h-10 text-primary" strokeWidth={1.5} />
           </div>
-          <h1 className="text-4xl font-bold mb-4 text-foreground">تتبع التسجيل</h1>
+          <h1 className="text-4xl md:text-5xl font-black mb-4 text-foreground tracking-wide font-sans">تتبع التسجيل</h1>
           <p className="text-muted-foreground text-lg">أدخل كود التسجيل الخاص بك لمتابعة حالة طلبك</p>
         </div>
 
         {/* Search Bar */}
-        <form onSubmit={handleSearch} className="relative mb-16 z-20">
-          <div className="absolute inset-y-0 right-0 flex items-center pr-6 pointer-events-none text-muted-foreground">
-            <Search className="w-6 h-6" />
-          </div>
-          <input
-            type="text"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            className="w-full bg-white border border-black/5 rounded-full py-6 pr-16 pl-36 text-xl text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 luxury-shadow transition-all font-serif"
-            placeholder="مثال: HKA-2026-0001"
-            dir="ltr"
-          />
-          <button 
-            type="submit"
-            className="absolute inset-y-3 left-3 px-8 gold-gradient text-white font-bold rounded-full transition-all shadow-md hover:shadow-lg hover:scale-105 active:scale-95"
-          >
-            بحث
-          </button>
-        </form>
+        <div className="glass-card p-6 md:p-8 rounded-[2.5rem] mb-16 relative z-20 luxury-shadow border-primary/20">
+          <form onSubmit={handleSearch} className="relative">
+            <div className="absolute inset-y-0 right-0 flex items-center pr-6 pointer-events-none text-muted-foreground">
+              <Search className="w-6 h-6" />
+            </div>
+            <input
+              type="text"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              className="w-full bg-black/40 border border-white/10 rounded-full py-6 pr-16 pl-40 text-xl text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary/60 focus:ring-2 focus:ring-primary/20 transition-all font-serif dir-ltr shadow-inner"
+              placeholder="HKA-2026-XXXX"
+              dir="ltr"
+            />
+            <button 
+              type="submit"
+              className="absolute inset-y-2 left-2 px-10 gold-gradient text-primary-foreground font-bold rounded-full transition-all shadow-[0_0_15px_rgba(201,168,76,0.3)] hover:shadow-[0_0_25px_rgba(201,168,76,0.5)] hover:scale-105 active:scale-95 text-lg shimmer-button"
+            >
+              بحث
+            </button>
+          </form>
+        </div>
 
         <AnimatePresence mode="wait">
           {hasSearched && !result && (
@@ -92,13 +100,14 @@ export function DashboardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white border border-rose-100 rounded-3xl p-10 text-center flex flex-col items-center luxury-shadow"
+              className="glass-card border-rose-500/30 rounded-[2rem] p-12 text-center flex flex-col items-center luxury-shadow relative overflow-hidden"
             >
-              <div className="w-16 h-16 bg-rose-50 rounded-full flex items-center justify-center mb-4">
-                <AlertCircle className="w-8 h-8 text-rose-500" />
+              <div className="absolute inset-0 bg-rose-500/5" />
+              <div className="w-20 h-20 bg-rose-500/10 rounded-full flex items-center justify-center mb-6 border border-rose-500/20 shadow-[0_0_30px_rgba(244,63,94,0.15)] relative z-10">
+                <AlertCircle className="w-10 h-10 text-rose-400" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-3">لم يتم العثور على التسجيل</h3>
-              <p className="text-muted-foreground text-lg">تأكد من إدخال الكود بشكل صحيح. الصيغة المعتمدة هي HKA-2026-XXXX</p>
+              <h3 className="text-3xl font-bold text-foreground mb-4 relative z-10">لم يتم العثور على التسجيل</h3>
+              <p className="text-muted-foreground text-lg relative z-10 max-w-lg">تأكد من إدخال الكود بشكل صحيح. الصيغة المعتمدة هي HKA-2026-XXXX</p>
             </motion.div>
           )}
 
@@ -110,24 +119,26 @@ export function DashboardPage() {
               className="space-y-8"
             >
               {result.paymentStatus === 'verified' && (
-                <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-100 text-emerald-800 p-6 rounded-3xl flex items-center gap-4 font-bold text-lg luxury-shadow relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-2 h-full bg-emerald-400" />
-                  <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm shrink-0">
-                    <CheckCircle className="w-6 h-6 text-emerald-500" />
+                <div className="glass-card border-[#34d399]/40 p-8 rounded-3xl flex items-center gap-6 font-bold text-lg luxury-shadow relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-r from-transparent via-[#34d399]/5 to-[#34d399]/10" />
+                  <div className="absolute top-0 right-0 w-2 h-full bg-[#34d399] shadow-[0_0_15px_rgba(52,211,153,0.8)]" />
+                  <div className="w-16 h-16 bg-[#34d399]/10 border border-[#34d399]/30 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(52,211,153,0.2)] shrink-0 relative z-10">
+                    <CheckCircle className="w-8 h-8 text-[#34d399]" />
                   </div>
-                  <div>
-                    <span className="block text-xl mb-1">تسجيل مؤكد</span>
-                    <span className="text-emerald-600/80 text-sm font-normal">أنت الآن مرشح رسمي في جوائز حكايتي 2026</span>
+                  <div className="relative z-10">
+                    <span className="block text-2xl mb-1 text-foreground">تسجيل مؤكد</span>
+                    <span className="text-[#34d399] text-sm font-medium tracking-wide">أنت الآن مرشح رسمي في جوائز حكايتي 2026</span>
                   </div>
                 </div>
               )}
 
-              <div className="bg-white rounded-[2rem] overflow-hidden luxury-shadow border border-black/5">
-                <div className="bg-background p-8 md:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-black/5 relative">
-                  <div className="absolute top-0 left-0 w-full h-1 gold-gradient" />
-                  <div>
-                    <p className="text-sm text-muted-foreground uppercase tracking-widest mb-2 font-bold">كود المتسابق</p>
-                    <div className="text-3xl md:text-4xl font-black font-serif text-foreground tracking-widest dir-ltr">
+              <div className="glass-card rounded-[2.5rem] overflow-hidden luxury-shadow glow-gold relative">
+                <div className="absolute top-0 left-0 w-full h-1 gold-gradient" />
+                
+                <div className="p-8 md:p-12 flex flex-col md:flex-row md:items-center justify-between gap-8 border-b border-white/10 relative bg-white/5">
+                  <div className="energy-border inline-block p-4 rounded-2xl bg-black/40">
+                    <p className="text-sm text-primary/70 uppercase tracking-[0.2em] mb-2 font-bold">كود المتسابق</p>
+                    <div className="text-4xl md:text-5xl font-black font-serif gold-text tracking-widest dir-ltr">
                       {result.code}
                     </div>
                   </div>
@@ -135,61 +146,61 @@ export function DashboardPage() {
                   {(() => {
                     const status = getStatusDisplay(result.paymentStatus);
                     return (
-                      <div className={`flex items-center gap-2 px-6 py-3 rounded-full border ${status.bg} ${status.border} shadow-sm`}>
+                      <div className={`flex items-center gap-3 px-6 py-4 rounded-2xl border ${status.bg} ${status.border} ${status.shadow} backdrop-blur-md`}>
                         {status.icon}
-                        <span className={`font-bold text-lg ${status.color}`}>{status.text}</span>
+                        <span className={`font-bold text-xl ${status.color}`}>{status.text}</span>
                       </div>
                     );
                   })()}
                 </div>
 
-                <div className="p-8 md:p-10 grid md:grid-cols-2 gap-10">
-                  <div className="space-y-8">
-                    <div className="flex items-start gap-5">
-                      <div className="w-12 h-12 rounded-full bg-background border border-black/5 flex items-center justify-center shrink-0">
+                <div className="p-8 md:p-12 grid md:grid-cols-2 gap-12 bg-black/20">
+                  <div className="space-y-10">
+                    <div className="flex items-start gap-6">
+                      <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
                         <Feather className="w-6 h-6 text-muted-foreground" />
                       </div>
                       <div>
-                        <p className="text-sm text-muted-foreground mb-1 font-bold">الكاتب</p>
-                        <p className="text-xl font-bold text-foreground">{result.name}</p>
+                        <p className="text-sm text-primary/60 mb-2 font-bold uppercase tracking-widest">الكاتب</p>
+                        <p className="text-2xl font-bold text-foreground">{result.name}</p>
                         {result.penName && (
-                          <p className="text-sm text-primary mt-1 font-medium bg-primary/5 inline-block px-2 py-0.5 rounded">مستعار: {result.penName}</p>
+                          <p className="text-sm text-primary/80 mt-2 font-medium bg-primary/10 border border-primary/20 inline-block px-3 py-1 rounded-md">مستعار: {result.penName}</p>
                         )}
                       </div>
                     </div>
                     
-                    <div className="flex items-start gap-5">
-                      <div className="w-12 h-12 rounded-full bg-background border border-black/5 flex items-center justify-center shrink-0">
+                    <div className="flex items-start gap-6">
+                      <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
                         <MapPin className="w-6 h-6 text-muted-foreground" />
                       </div>
                       <div>
-                        <p className="text-sm text-muted-foreground mb-1 font-bold">المدينة</p>
-                        <p className="text-xl font-bold text-foreground">{result.city}</p>
+                        <p className="text-sm text-primary/60 mb-2 font-bold uppercase tracking-widest">المدينة</p>
+                        <p className="text-2xl font-bold text-foreground">{result.city}</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="space-y-8">
-                    <div className="flex items-start gap-5">
-                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                  <div className="space-y-10">
+                    <div className="flex items-start gap-6">
+                      <div className="w-14 h-14 rounded-full bg-primary/10 border border-primary/30 glow-gold flex items-center justify-center shrink-0">
                         <BookOpen className="w-6 h-6 text-primary" />
                       </div>
                       <div>
-                        <p className="text-sm text-muted-foreground mb-1 font-bold">العمل الأدبي</p>
-                        <p className="text-2xl font-bold text-foreground font-serif">{result.storyName}</p>
-                        <span className="inline-block mt-3 text-sm font-bold bg-background border border-black/5 text-muted-foreground px-4 py-1.5 rounded-full">
+                        <p className="text-sm text-primary/60 mb-2 font-bold uppercase tracking-widest">العمل الأدبي</p>
+                        <p className="text-3xl font-bold text-foreground font-serif leading-tight">{result.storyName}</p>
+                        <span className="inline-block mt-4 text-sm font-bold bg-white/5 border border-white/10 text-muted-foreground px-5 py-2 rounded-xl">
                           {result.category}
                         </span>
                       </div>
                     </div>
                     
-                    <div className="flex items-start gap-5">
-                      <div className="w-12 h-12 rounded-full bg-background border border-black/5 flex items-center justify-center shrink-0">
+                    <div className="flex items-start gap-6">
+                      <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
                         <Clock className="w-6 h-6 text-muted-foreground" />
                       </div>
                       <div>
-                        <p className="text-sm text-muted-foreground mb-1 font-bold">تاريخ التسجيل</p>
-                        <p className="text-xl font-bold text-foreground dir-ltr text-right">
+                        <p className="text-sm text-primary/60 mb-2 font-bold uppercase tracking-widest">تاريخ التسجيل</p>
+                        <p className="text-2xl font-bold text-foreground dir-ltr text-right">
                           {new Date(result.registeredAt).toLocaleDateString('en-GB')}
                         </p>
                       </div>
