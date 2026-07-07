@@ -1,17 +1,37 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'wouter';
-import { Feather, Menu, X } from 'lucide-react';
+import { Feather, Menu, X, LogOut, LogIn, Shield, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '@/hooks/useAuth';
+import { toast } from 'sonner';
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, isAdmin, isLoading, signOut } = useAuth();
 
-  const links = [
+  const baseLinks = [
     { href: '/', label: 'الرئيسية' },
-    { href: '/dashboard', label: 'لوحة التحكم' },
-    { href: '/admin', label: 'الإدارة' },
   ];
+
+  const adminLinks = isAdmin
+    ? [{ href: '/admin', label: 'الإدارة' }]
+    : [];
+
+  const savedCode = typeof window !== 'undefined' ? localStorage.getItem('hekayaty_active_code') : null;
+
+  const participantLinks = (!isAdmin && savedCode)
+    ? [{ href: `/dashboard?code=${savedCode}`, label: 'لوحة التحكم' }]
+    : [];
+
+  const links = [...baseLinks, ...participantLinks, ...adminLinks];
+
+  const handleSignOut = async () => {
+    await signOut();
+    setIsMobileMenuOpen(false);
+    toast('تم تسجيل الخروج');
+    setLocation('/');
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
@@ -31,6 +51,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </div>
           </Link>
 
+          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
             {links.map((link) => (
               <Link 
@@ -51,16 +72,51 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 )}
               </Link>
             ))}
-            <Link 
-              href="/register"
-              className="gold-gradient text-primary-foreground px-6 py-2.5 rounded-full font-bold text-sm shadow-[0_4px_14px_rgba(201,168,76,0.1)] hover:glow-gold hover:-translate-y-0.5 transition-all shimmer-button"
-            >
-              سجّل الآن
-            </Link>
+
+            {/* Auth Buttons */}
+            {!isLoading && (
+              user ? (
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full">
+                    {isAdmin
+                      ? <Shield className="w-4 h-4 text-primary" />
+                      : <User className="w-4 h-4 text-primary" />
+                    }
+                    <span className="text-xs text-foreground/70 font-medium max-w-[120px] truncate" dir="ltr">
+                      {user.email}
+                    </span>
+                  </div>
+                  <button
+                    onClick={handleSignOut}
+                    className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm font-bold text-foreground/70 hover:text-rose-400 hover:border-rose-400/30 transition-all"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    خروج
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-3">
+                  <Link
+                    href="/login"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-white/5 border border-white/10 rounded-full text-sm font-bold text-foreground/70 hover:text-primary hover:border-primary/30 transition-all"
+                  >
+                    <LogIn className="w-4 h-4" />
+                    تسجيل الدخول
+                  </Link>
+                  <Link 
+                    href="/register"
+                    className="gold-gradient text-primary-foreground px-6 py-2.5 rounded-full font-bold text-sm shadow-[0_4px_14px_rgba(201,168,76,0.1)] hover:glow-gold hover:-translate-y-0.5 transition-all shimmer-button"
+                  >
+                    سجّل الآن
+                  </Link>
+                </div>
+              )
+            )}
           </nav>
 
+          {/* Mobile Menu Button */}
           <button 
-            className="md:hidden p-2 text-foreground/80 hover:text-primary transition-colors"
+            className="md:hidden relative z-50 min-w-[44px] min-h-[44px] flex items-center justify-center text-foreground/80 hover:text-primary transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -68,36 +124,70 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden absolute top-20 left-0 right-0 border-b z-40"
-            style={{ borderColor: 'rgba(201,168,76,0.12)', background: 'rgba(9,9,15,0.95)', backdropFilter: 'blur(24px)' }}
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="md:hidden fixed inset-0 z-40 bg-[#09090F] flex flex-col pt-24 px-6"
           >
-            <div className="flex flex-col px-6 py-6 gap-6">
+            <div className="flex flex-col gap-6">
               {links.map((link) => (
                 <Link 
                   key={link.href} 
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`text-base font-semibold transition-colors ${
-                    location === link.href ? 'text-primary' : 'text-foreground/70 hover:text-primary'
+                  className={`text-2xl font-black font-serif transition-colors min-h-[44px] flex items-center ${
+                    location === link.href ? 'gold-text' : 'text-white hover:text-primary'
                   }`}
                 >
                   {link.label}
                 </Link>
               ))}
-              <Link 
-                href="/register"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="gold-gradient text-primary-foreground px-6 py-3 rounded-xl font-bold text-center mt-2 glow-gold shimmer-button"
-              >
-                سجّل الآن
-              </Link>
+
+              <div className="h-[1px] w-full bg-white/10 my-2" />
+
+              {!isLoading && (
+                user ? (
+                  <>
+                    <div className="flex items-center gap-3 text-foreground/60">
+                      {isAdmin
+                        ? <Shield className="w-5 h-5 text-primary" />
+                        : <User className="w-5 h-5 text-primary" />
+                      }
+                      <span className="text-sm font-medium truncate" dir="ltr">{user.email}</span>
+                    </div>
+                    <button
+                      onClick={handleSignOut}
+                      className="flex items-center gap-3 text-xl font-bold text-rose-400 min-h-[44px]"
+                    >
+                      <LogOut className="w-5 h-5" />
+                      تسجيل الخروج
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/login"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="flex items-center gap-3 min-h-[44px] text-xl font-bold text-foreground/70 hover:text-primary"
+                    >
+                      <LogIn className="w-5 h-5" />
+                      تسجيل الدخول
+                    </Link>
+                    <Link 
+                      href="/register"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="gold-gradient text-primary-foreground px-6 min-h-[56px] flex items-center justify-center rounded-2xl font-bold text-lg glow-gold shimmer-button"
+                    >
+                      سجّل الآن
+                    </Link>
+                  </>
+                )
+              )}
             </div>
           </motion.div>
         )}
@@ -107,13 +197,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
       </main>
 
-      <footer className="border-t border-white/5 bg-[#050508] py-16 mt-auto relative z-10">
+      <footer className="border-t border-white/5 bg-[#050508] py-24 mt-auto relative z-10">
         <div className="container mx-auto px-6 text-center">
-          <div className="flex items-center justify-center gap-3 mb-6">
+          <div className="flex items-center justify-center gap-3 mb-8">
             <Feather className="w-6 h-6 text-primary" />
             <span className="font-serif text-2xl font-bold tracking-[0.2em] uppercase mt-1 gold-text">Hekayaty</span>
           </div>
-          <p className="text-muted-foreground max-w-md mx-auto mb-10 text-sm leading-relaxed">
+          <p className="text-muted-foreground max-w-md mx-auto mb-12 text-sm leading-relaxed">
             نحتفي بالقصص التي تصيغ عالمنا. منصة الجوائز الأدبية الأرقى في الوطن العربي.
           </p>
           <div className="h-[1px] w-24 mx-auto bg-gradient-to-r from-transparent via-primary/30 to-transparent mb-8" />

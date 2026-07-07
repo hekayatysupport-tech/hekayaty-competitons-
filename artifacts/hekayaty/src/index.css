@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&family=Tajawal:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&family=Tajawal:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Cinzel:wght@400;600;700&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
@@ -50,32 +50,37 @@
 }
 
 :root, .dark {
-  --background: 240 15% 4%;
-  --foreground: 40 60% 92%;
+  /* Deep Royal Purple Background */
+  --background: 265 61% 11%;
+  /* Ivory text */
+  --foreground: 40 33% 98%;
   
-  --card: 240 12% 8%;
-  --card-foreground: 40 60% 92%;
-  --card-border: rgba(201,168,76,0.12);
+  /* Slightly lighter purple for cards */
+  --card: 265 40% 16%;
+  --card-foreground: 40 33% 98%;
+  --card-border: rgba(201,168,76,0.15);
   
-  --popover: 240 12% 8%;
-  --popover-foreground: 40 60% 92%;
-  --popover-border: rgba(201,168,76,0.12);
+  --popover: 265 40% 16%;
+  --popover-foreground: 40 33% 98%;
+  --popover-border: rgba(201,168,76,0.15);
   
-  --primary: 42 55% 54%;
-  --primary-foreground: 240 15% 4%;
+  /* Premium Gold */
+  --primary: 44 54% 54%;
+  --primary-foreground: 265 61% 11%;
   --primary-border: rgba(201,168,76,0.5);
   
-  --secondary: 240 10% 14%;
-  --secondary-foreground: 40 40% 75%;
-  --secondary-border: rgba(255,255,255,0.05);
+  /* Warm Ivory background elements */
+  --secondary: 40 33% 96%;
+  --secondary-foreground: 265 61% 11%;
+  --secondary-border: rgba(265,61,11,0.1);
   
-  --muted: 240 10% 14%;
-  --muted-foreground: 35 20% 55%;
+  --muted: 265 30% 20%;
+  --muted-foreground: 265 20% 70%;
   --muted-border: rgba(255,255,255,0.05);
   
-  --accent: 265 80% 68%;
-  --accent-foreground: 0 0% 100%;
-  --accent-border: rgba(148,90,255,0.4);
+  --accent: 44 80% 68%;
+  --accent-foreground: 265 61% 11%;
+  --accent-border: rgba(201,168,76,0.4);
   
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
@@ -83,10 +88,10 @@
   
   --border: rgba(201,168,76,0.1);
   --input: rgba(255,255,255,0.06);
-  --ring: 42 55% 54%;
+  --ring: 44 54% 54%;
   
   --app-font-sans: 'Cairo', 'Tajawal', 'Inter', sans-serif;
-  --app-font-serif: 'Cinzel', serif;
+  --app-font-serif: 'Playfair Display', 'Cinzel', serif;
   
   --radius: 1rem;
 }
@@ -96,30 +101,52 @@
     @apply border-border;
   }
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply font-sans antialiased bg-background text-foreground overflow-x-hidden;
   }
   .font-serif {
     font-family: var(--app-font-serif);
   }
+  /* Prevent iOS zoom on inputs */
+  input, select, textarea {
+    font-size: 16px;
+  }
+}
+
+@layer utilities {
+  .text-fluid-h1 {
+    font-size: clamp(2.5rem, 6vw + 1rem, 6rem);
+    line-height: 1.1;
+  }
+  .text-fluid-h2 {
+    font-size: clamp(2rem, 4vw + 1rem, 4.5rem);
+    line-height: 1.2;
+  }
+  .text-fluid-h3 {
+    font-size: clamp(1.5rem, 3vw + 0.5rem, 3rem);
+    line-height: 1.3;
+  }
+  .text-fluid-p {
+    font-size: clamp(1rem, 1.5vw + 0.5rem, 1.25rem);
+    line-height: 1.6;
+  }
 }
 
 /* Core gold gradient */
-.gold-gradient { background: linear-gradient(135deg, #B8943E 0%, #F0C76E 45%, #C9A84C 70%, #8B6914 100%); }
-.gold-text { background: linear-gradient(135deg, #F0C76E 0%, #C9A84C 50%, #E8B84B 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.gold-gradient { background: linear-gradient(135deg, #E6B952 0%, #F5D38A 30%, #C9A84C 70%, #997822 100%); }
+.gold-text { background: linear-gradient(135deg, #F5D38A 0%, #C9A84C 50%, #E6B952 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
 /* Cinematic glass — for cards on dark bg */
-.glass-card { background: rgba(16,16,26,0.7); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(201,168,76,0.15); }
-.glass-card-light { background: rgba(255,255,255,0.04); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); }
+.glass-card { background: rgba(30, 16, 45, 0.7); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(201,168,76,0.2); }
+.glass-card-light { background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); }
 
 /* Luxury shadow — gold glow */
-.luxury-shadow { box-shadow: 0 0 40px rgba(201,168,76,0.08), 0 4px 24px rgba(0,0,0,0.4), 0 1px 0 rgba(201,168,76,0.1) inset; }
-.glow-gold { box-shadow: 0 0 30px rgba(201,168,76,0.25), 0 0 80px rgba(201,168,76,0.08); }
-.glow-violet { box-shadow: 0 0 30px rgba(148,90,255,0.25), 0 0 80px rgba(148,90,255,0.08); }
+.luxury-shadow { box-shadow: 0 0 40px rgba(201,168,76,0.1), 0 10px 30px rgba(0,0,0,0.5), 0 1px 0 rgba(201,168,76,0.15) inset; }
+.glow-gold { box-shadow: 0 0 40px rgba(201,168,76,0.3), 0 0 100px rgba(201,168,76,0.1); }
 
 /* Section backgrounds */
-.lavender-section { background: radial-gradient(ellipse at 50% 0%, rgba(148,90,255,0.08) 0%, transparent 70%), #09090f; }
-.section-dark { background: #09090f; }
-.section-elevated { background: #10101a; }
+.section-dark { background: #150824; }
+.section-elevated { background: #1A0B2E; }
+.section-ivory { background: #FDFBF7; color: #1A0B2E; }
 
 /* Shimmer on buttons */
 @keyframes shimmer {
@@ -140,7 +167,7 @@
 /* Energy border pulse */
 @keyframes borderPulse {
   0%, 100% { border-color: rgba(201,168,76,0.2); box-shadow: 0 0 0 0 rgba(201,168,76,0); }
-  50% { border-color: rgba(201,168,76,0.5); box-shadow: 0 0 20px rgba(201,168,76,0.15); }
+  50% { border-color: rgba(201,168,76,0.6); box-shadow: 0 0 25px rgba(201,168,76,0.2); }
 }
 .energy-border { animation: borderPulse 3s infinite ease-in-out; }
 
@@ -164,13 +191,13 @@
 }
 .light-ray { animation: lightRay 4s ease-in-out infinite; }
 
-/* Aurora gradient */
+/* Aurora gradient (Purple/Gold) */
 @keyframes aurora {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
 .aurora-bg {
-  background: linear-gradient(-45deg, rgba(148,90,255,0.15), rgba(201,168,76,0.1), rgba(60,20,120,0.2), rgba(201,168,76,0.08));
+  background: linear-gradient(-45deg, rgba(60,20,120,0.3), rgba(201,168,76,0.1), rgba(26,11,46,0.8), rgba(201,168,76,0.15));
   background-size: 400% 400%;
-  animation: aurora 12s ease infinite;
+  animation: aurora 15s ease infinite;
 }

@@ -68,7 +68,7 @@ export const generateReceiptPDF = (registration: Registration) => {
   doc.setTextColor(200, 200, 200);
   doc.text("Payment Status:", 40, startY + lineSpacing * 3);
   doc.setTextColor(...gold);
-  doc.text(registration.paymentStatus.toUpperCase(), 170, startY + lineSpacing * 3, { align: "right" });
+  doc.text((registration.paymentStatus ?? 'N/A').toUpperCase(), 170, startY + lineSpacing * 3, { align: "right" });
 
   doc.setTextColor(200, 200, 200);
   doc.text("Date:", 40, startY + lineSpacing * 4);
