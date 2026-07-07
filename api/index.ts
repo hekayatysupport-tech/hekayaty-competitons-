@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import multer from 'multer';
 import axios from 'axios';
@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 20 * 1024 * 1024 }, // 20 MB
-  fileFilter: (_req, file, cb) => {
+  fileFilter: (_req: any, file: any, cb: any) => {
     const allowed = [
       'application/pdf',
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
@@ -45,12 +45,12 @@ const upload = multer({
 });
 
 // ─── Health Check ─────────────────────────────────────────────────────────────
-app.get('/api/health', (_req, res) => {
+app.get('/api/health', (_req: Request, res: Response) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 // ─── Novel Upload ─────────────────────────────────────────────────────────────
-app.post('/api/upload/upload-novel/:storyId', upload.single('novel'), async (req, res) => {
+app.post('/api/upload/upload-novel/:storyId', upload.single('novel'), async (req: Request, res: Response): Promise<void> => {
   try {
     const { storyId } = req.params;
     const { code, writerName, email, category, novelTitle, registrationId } = req.body;
@@ -137,7 +137,7 @@ const adminAuthLimiter = rateLimit({
 const ADMIN_SECRET_KEY = process.env.ADMIN_SECRET_KEY;
 
 // POST /api/admin/auth/login
-app.post('/api/admin/auth/login', adminAuthLimiter, async (req, res) => {
+app.post('/api/admin/auth/login', adminAuthLimiter, async (req: Request, res: Response): Promise<void> => {
   const { email, password, secretKey } = req.body;
 
   if (!email || !password || !secretKey) {
@@ -151,16 +151,16 @@ app.post('/api/admin/auth/login', adminAuthLimiter, async (req, res) => {
   }
 
   try {
-    let { data: authData, error: authError } = await supabaseAdmin.auth.signInWithPassword({ email, password });
+    let { data: authData, error: authError } = await (supabaseAdmin.auth as any).signInWithPassword({ email, password });
 
-    if (authError || !authData.user) {
-      const { data: signUpData, error: signUpError } = await supabaseAdmin.auth.signUp({
+    if (authError || !authData?.user) {
+      const { data: signUpData, error: signUpError } = await (supabaseAdmin.auth as any).signUp({
         email,
         password,
         options: { data: { full_name: 'Admin' } },
       });
 
-      if (signUpError || !signUpData.user) {
+      if (signUpError || !signUpData?.user) {
         res.status(401).json({ error: 'Invalid administrator credentials.' });
         return;
       }
@@ -176,8 +176,8 @@ app.post('/api/admin/auth/login', adminAuthLimiter, async (req, res) => {
         return;
       }
 
-      const { data: autoSignIn, error: autoErr } = await supabaseAdmin.auth.signInWithPassword({ email, password });
-      if (autoErr || !autoSignIn.user) {
+      const { data: autoSignIn, error: autoErr } = await (supabaseAdmin.auth as any).signInWithPassword({ email, password });
+      if (autoErr || !autoSignIn?.user) {
         res.status(500).json({ error: 'Created but failed to auto-login' });
         return;
       }
@@ -203,7 +203,7 @@ app.post('/api/admin/auth/login', adminAuthLimiter, async (req, res) => {
 });
 
 // POST /api/admin/auth/register
-app.post('/api/admin/auth/register', adminAuthLimiter, async (req, res) => {
+app.post('/api/admin/auth/register', adminAuthLimiter, async (req: Request, res: Response): Promise<void> => {
   const { email, password, name, secretKey, role = 'super_admin' } = req.body;
 
   if (!email || !password || !name || !secretKey) {
@@ -217,13 +217,13 @@ app.post('/api/admin/auth/register', adminAuthLimiter, async (req, res) => {
   }
 
   try {
-    const { data: authData, error: signUpError } = await supabaseAdmin.auth.signUp({
+    const { data: authData, error: signUpError } = await (supabaseAdmin.auth as any).signUp({
       email,
       password,
       options: { data: { full_name: name } },
     });
 
-    if (signUpError || !authData.user) {
+    if (signUpError || !authData?.user) {
       res.status(400).json({ error: signUpError?.message || 'Failed to create account' });
       return;
     }
@@ -239,7 +239,7 @@ app.post('/api/admin/auth/register', adminAuthLimiter, async (req, res) => {
       return;
     }
 
-    const { data: signInData, error: signInError } = await supabaseAdmin.auth.signInWithPassword({ email, password });
+    const { data: signInData, error: signInError } = await (supabaseAdmin.auth as any).signInWithPassword({ email, password });
 
     if (signInError) {
       res.status(500).json({ error: 'Created but failed to auto-login' });
