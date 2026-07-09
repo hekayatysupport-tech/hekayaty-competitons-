@@ -72,8 +72,7 @@ export function LoginPage() {
 
     setALoading(true);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || '';
-      const res = await fetch(`${apiUrl}/api/admin/auth/login`, {
+      const res = await fetch(`/api/admin/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: aEmail.trim().toLowerCase(), password: aPassword, secretKey: aSecretKey })

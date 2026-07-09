@@ -152,7 +152,7 @@ export function UploadSubmissionPage() {
     formData.append('registrationId', registration.id);
 
     const xhr = new XMLHttpRequest();
-    const apiUrl = `${import.meta.env.VITE_API_URL || ''}/api/upload/upload-novel`;
+    const apiUrl = `/api/upload/upload-novel`;
 
     xhr.upload.addEventListener('progress', (event) => {
       if (event.lengthComputable) {
