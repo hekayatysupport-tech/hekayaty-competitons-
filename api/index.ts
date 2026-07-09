@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 // ─── Multer (memory storage — no disk needed on Vercel) ──────────────────────
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 20 * 1024 * 1024 }, // 20 MB
+  limits: { fileSize: 150 * 1024 * 1024 }, // 150 MB
   fileFilter: (_req: any, file: any, cb: any) => {
     const allowed = [
       'application/pdf',

@@ -284,7 +284,7 @@ export function UploadNovelPage() {
                       <div className="flex items-center justify-center gap-4 text-xs text-white/40">
                         <span className="flex items-center gap-1"><ShieldCheck className="w-4 h-4 text-primary" /> نقل آمن للجنة التحكيم</span>
                         <span>PDF, DOCX</span>
-                        <span>الحد الأقصى 20MB</span>
+                        <span>الحد الأقصى 150MB</span>
                       </div>
                     </div>
                   )}

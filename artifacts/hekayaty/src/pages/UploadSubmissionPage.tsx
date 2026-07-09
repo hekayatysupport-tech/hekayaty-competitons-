@@ -131,7 +131,7 @@ export function UploadSubmissionPage() {
     if (!allowed.includes(file.type) && !['.pdf', '.docx', '.doc'].includes(ext)) {
       toast.error('يسمح فقط بملفات PDF و DOCX'); return;
     }
-    if (file.size > 20 * 1024 * 1024) { toast.error('حجم الملف يجب أن يكون أقل من 20MB'); return; }
+    if (file.size > 150 * 1024 * 1024) { toast.error('حجم الملف يجب أن يكون أقل من 150MB'); return; }
     setFiles(prev => ({ ...prev, [storyId]: file }));
     setUploadStatus(prev => ({ ...prev, [storyId]: 'idle' }));
   };
@@ -431,7 +431,7 @@ export function UploadSubmissionPage() {
                             {[
                               { icon: ShieldCheck, text: 'نقل آمن للجنة' },
                               { icon: null, text: 'PDF, DOCX' },
-                              { icon: null, text: 'حد أقصى 20MB' },
+                              { icon: null, text: 'حد أقصى 150MB' },
                             ].map((item, i) => (
                               <span key={i} className="flex items-center gap-1.5 text-xs text-white/30 font-medium bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
                                 {item.icon && <item.icon className="w-3.5 h-3.5 text-primary" />}
