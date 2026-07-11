@@ -20,7 +20,7 @@ const FAQ = [
   { q: 'هل يمكنني تعديل روايتي بعد التسليم؟', a: 'لا يمكن تعديل الرواية بعد التسليم الرسمي. يرجى التأكد من صحة الملف قبل الرفع.' },
   { q: 'كيف أتواصل مع الإدارة؟', a: 'يمكنك التواصل عبر البريد الإلكتروني hekayatysupport@gmail.com وسيتم الرد خلال يوم عمل.' },
   { q: 'ما الصيغ المقبولة للرواية؟', a: 'نقبل ملفات PDF وDOCX فقط بحد أقصى 20 ميجابايت.' },
-  { q: 'هل يمكنني الاشتراك بأكثر من رواية؟', a: 'الباقة الفردية تتيح رواية واحدة، والباقة المتعددة تتيح حتى 3 روايات.' },
+  { q: 'هل يمكنني الاشتراك بأكثر من رواية؟', a: 'كلتا الباقتين تتيحان تسليم رواية واحدة فقط. الباقة الأولى (١٠٠ ج.م) للأعمال التي لا تتجاوز ٢٥,٠٠٠ كلمة، والباقة الثانية (١٥٠ ج.م) للأعمال التي تزيد عن ٣٥,٠٠٠ كلمة.' },
 ];
 
 const PRIZE_INFO = [
@@ -103,7 +103,7 @@ function SearchView({ onFound }: { onFound: (code: string) => void }) {
 
   return (
     <div className="min-h-[calc(100vh-80px)] flex items-center justify-center px-4 relative section-dark" dir="rtl">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#06020f] via-[#130825] to-[#0a0518]" />
+      <div className="absolute inset-0 bg-[#0A0503]" />
       <div className="absolute inset-0 aurora-bg opacity-15 pointer-events-none" />
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
 
@@ -248,7 +248,7 @@ export function DashboardPage() {
   return (
     <div className="min-h-[calc(100vh-80px)] pb-20 relative section-dark overflow-hidden font-sans" dir="rtl">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#06020f] via-[#130825] to-[#0a0518]" />
+      <div className="absolute inset-0 bg-[#0A0503]" />
       <div className="absolute inset-0 aurora-bg opacity-15 pointer-events-none" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[300px] bg-primary/4 blur-[130px] rounded-full pointer-events-none" />
 

@@ -210,7 +210,7 @@ export function UploadSubmissionPage() {
   return (
     <div className="min-h-[calc(100vh-80px)] py-16 px-4 relative section-dark overflow-hidden font-sans" dir="rtl">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#080316] via-[#1A0B2E] to-[#0d0620]" />
+      <div className="absolute inset-0 bg-[#0A0503]" />
       <div className="absolute inset-0 aurora-bg opacity-20 pointer-events-none" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
 
@@ -290,7 +290,7 @@ export function UploadSubmissionPage() {
         <ProgressTimeline uploadDone={allDone} />
 
         {/* Main Card */}
-        <div className="bg-[#1A0B2E]/80 backdrop-blur-xl rounded-[2rem] border border-primary/25 shadow-[0_20px_60px_rgba(0,0,0,0.5)] overflow-hidden">
+        <div className="bg-[#120B08]/80 backdrop-blur-xl rounded-[2rem] border border-primary/25 shadow-[0_20px_60px_rgba(0,0,0,0.5)] overflow-hidden">
           <div className="h-1 w-full gold-gradient" />
 
           <div className="p-8 md:p-10">

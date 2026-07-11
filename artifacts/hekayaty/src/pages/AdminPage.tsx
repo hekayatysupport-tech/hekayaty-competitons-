@@ -134,7 +134,7 @@ export function AdminPage() {
   if (!isAuthenticated) {
     return (
       <div className="min-h-[calc(100vh-80px)] flex items-center justify-center p-4 section-dark overflow-hidden relative font-sans">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#10061e] via-[#1A0B2E] to-[#150824]" />
+        <div className="absolute inset-0 bg-[#0A0503]" />
         <div className="absolute inset-0 aurora-bg opacity-30" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
         
@@ -146,7 +146,7 @@ export function AdminPage() {
         <motion.div 
           initial={{ opacity: 0, y: 30, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          className="w-full max-w-md bg-[#1A0B2E] border border-primary/30 p-12 rounded-[3rem] text-center glow-gold relative z-10 shadow-[0_20px_50px_rgba(201,168,76,0.15)] energy-border"
+          className="w-full max-w-md bg-[#120B08] border border-primary/30 p-12 rounded-[3rem] text-center glow-gold relative z-10 shadow-[0_20px_50px_rgba(201,168,76,0.15)] energy-border"
         >
           <div className="w-24 h-24 bg-primary/10 border border-primary/20 rounded-full flex items-center justify-center mx-auto mb-10 shadow-[0_0_30px_rgba(201,168,76,0.2)]">
             <Lock className="w-10 h-10 text-primary animate-pulse" strokeWidth={1.5} />
@@ -193,7 +193,7 @@ export function AdminPage() {
 
   return (
     <div className="min-h-[calc(100vh-80px)] py-24 px-4 md:px-8 section-dark font-sans relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#10061e] via-[#1A0B2E] to-[#150824] pointer-events-none" />
+      <div className="absolute inset-0 bg-[#0A0503] pointer-events-none" />
       <div className="absolute inset-0 aurora-bg opacity-20 pointer-events-none" />
       
       <div className="max-w-[1400px] mx-auto space-y-12 relative z-10">
@@ -219,7 +219,7 @@ export function AdminPage() {
 
         {/* Enhanced Stats Row 1: Users & Revenue */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="bg-[#1A0B2E] border border-primary/30 rounded-3xl p-8 glow-gold flex flex-col justify-between relative overflow-hidden shadow-[0_10px_30px_rgba(201,168,76,0.1)] energy-border">
+          <div className="bg-[#120B08] border border-primary/30 rounded-3xl p-8 glow-gold flex flex-col justify-between relative overflow-hidden shadow-[0_10px_30px_rgba(201,168,76,0.1)] energy-border">
             <div className="absolute -right-4 -top-4 w-24 h-24 bg-white/5 rounded-full opacity-30 pointer-events-none" />
             <div className="flex items-center justify-between mb-6 relative z-10">
               <div className="p-3 bg-black/40 rounded-2xl border border-white/5"><Users className="w-6 h-6 text-primary" /></div>
@@ -230,7 +230,7 @@ export function AdminPage() {
             </p>
           </div>
 
-          <div className="bg-[#1A0B2E] border border-[#34d399]/30 rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden shadow-[0_10px_30px_rgba(52,211,153,0.1)] energy-border">
+          <div className="bg-[#120B08] border border-[#34d399]/30 rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden shadow-[0_10px_30px_rgba(52,211,153,0.1)] energy-border">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#34d399]/5 pointer-events-none" />
             <div className="absolute -right-4 -top-4 w-24 h-24 bg-[#34d399]/10 rounded-full opacity-30 pointer-events-none" />
             <div className="flex items-center justify-between mb-6 relative z-10">
@@ -242,7 +242,7 @@ export function AdminPage() {
             </p>
           </div>
 
-          <div className="bg-[#1A0B2E] border border-amber-400/30 rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden shadow-[0_10px_30px_rgba(251,191,36,0.1)] energy-border">
+          <div className="bg-[#120B08] border border-amber-400/30 rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden shadow-[0_10px_30px_rgba(251,191,36,0.1)] energy-border">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent to-amber-400/5 pointer-events-none" />
             <div className="flex items-center justify-between mb-6 relative z-10">
               <div className="p-3 bg-black/40 rounded-2xl border border-amber-400/10"><Clock className="w-6 h-6 text-amber-400" /></div>
@@ -254,7 +254,7 @@ export function AdminPage() {
             <p className="text-xs text-amber-400/70 mt-2 font-bold">(أرباح متوقعة: {stats.expectedRevenue} ج.م)</p>
           </div>
 
-          <div className="bg-[#1A0B2E] border border-primary/30 rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden shadow-[0_10px_30px_rgba(201,168,76,0.1)] energy-border">
+          <div className="bg-[#120B08] border border-primary/30 rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden shadow-[0_10px_30px_rgba(201,168,76,0.1)] energy-border">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5 pointer-events-none" />
             <div className="flex items-center justify-between mb-6 relative z-10">
               <div className="p-3 bg-black/40 rounded-2xl border border-white/5"><FileText className="w-6 h-6 text-primary" /></div>
@@ -271,7 +271,7 @@ export function AdminPage() {
         </div>
 
         {/* Toolbar */}
-        <div className="flex flex-col md:flex-row gap-6 bg-[#1A0B2E] p-6 rounded-[2rem] border border-primary/30 shadow-[0_10px_30px_rgba(201,168,76,0.1)] energy-border">
+        <div className="flex flex-col md:flex-row gap-6 bg-[#120B08] p-6 rounded-[2rem] border border-primary/30 shadow-[0_10px_30px_rgba(201,168,76,0.1)] energy-border">
           <div className="relative flex-1">
             <Search className="absolute right-5 top-1/2 -translate-y-1/2 w-6 h-6 text-muted-foreground" />
             <input 
@@ -293,7 +293,7 @@ export function AdminPage() {
         </div>
 
         {/* Table */}
-        <div className="bg-[#1A0B2E] rounded-[2.5rem] overflow-hidden border border-primary/30 shadow-[0_20px_50px_rgba(201,168,76,0.15)] energy-border relative">
+        <div className="bg-[#120B08] rounded-[2.5rem] overflow-hidden border border-primary/30 shadow-[0_20px_50px_rgba(201,168,76,0.15)] energy-border relative">
           <div className="absolute top-0 left-0 w-full h-1 gold-gradient" />
           <div className="overflow-x-auto">
             {/* Desktop Table */}

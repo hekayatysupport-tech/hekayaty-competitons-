@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'wouter';
 import { useRegistrations } from '@/hooks/useRegistrations';
 import { supabase } from '@/lib/supabase';
@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, Lock, ArrowRight, Wallet, CheckCircle2, UploadCloud, FileImage, Type, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
-export function PaymentPage() {
+export const PaymentPage = React.memo(function PaymentPage() {
   const [, setLocation] = useLocation();
   const searchParams = new URLSearchParams(window.location.search);
   const code = searchParams.get('code');
@@ -77,7 +77,7 @@ export function PaymentPage() {
     <div className="min-h-[calc(100vh-80px)] py-24 px-4 relative flex items-center justify-center section-dark overflow-hidden font-sans">
       
       {/* Background Atmosphere */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#10061e] via-[#1A0B2E] to-[#150824]" />
+      <div className="absolute inset-0 bg-[#0A0503]" />
       <div className="absolute inset-0 aurora-bg opacity-30 pointer-events-none" />
       
       <motion.div 
@@ -89,40 +89,40 @@ export function PaymentPage() {
         
         {/* Order Summary (Ivory Card) */}
         <div className="md:col-span-2 space-y-6 order-2 md:order-1">
-          <div className="bg-white rounded-[2rem] p-8 shadow-[0_20px_40px_rgba(0,0,0,0.2)] relative overflow-hidden text-[#1A0B2E]">
-            <div className="absolute top-0 right-0 w-40 h-40 bg-[#1A0B2E]/5 blur-3xl rounded-full" />
+          <div className="bg-white rounded-[2rem] p-8 shadow-[0_20px_40px_rgba(0,0,0,0.2)] relative overflow-hidden text-[#120B08]">
+            <div className="absolute top-0 right-0 w-40 h-40 bg-[#120B08]/5 blur-3xl rounded-full" />
             
             <h3 className="text-xl font-bold mb-8 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#1A0B2E]/10 flex items-center justify-center border border-[#1A0B2E]/20">
-                <Wallet className="w-5 h-5 text-[#1A0B2E]" />
+              <div className="w-10 h-10 rounded-full bg-[#120B08]/10 flex items-center justify-center border border-[#120B08]/20">
+                <Wallet className="w-5 h-5 text-[#120B08]" />
               </div>
               ملخص التسجيل
             </h3>
             
             <div className="space-y-6 text-sm relative z-10 font-medium">
-              <div className="flex justify-between border-b border-[#1A0B2E]/10 pb-4">
-                <span className="text-[#1A0B2E]/60">اسم الكاتب</span>
+              <div className="flex justify-between border-b border-[#120B08]/10 pb-4">
+                <span className="text-[#120B08]/60">اسم الكاتب</span>
                 <span className="font-bold">{registration.name}</span>
               </div>
-              <div className="flex justify-between border-b border-[#1A0B2E]/10 pb-4">
-                <span className="text-[#1A0B2E]/60">الباقة المختارة</span>
-                <span className="text-white font-bold bg-[#1A0B2E] px-3 py-1 rounded-full text-xs shadow-md">{packageName}</span>
+              <div className="flex justify-between border-b border-[#120B08]/10 pb-4">
+                <span className="text-[#120B08]/60">الباقة المختارة</span>
+                <span className="text-white font-bold bg-[#120B08] px-3 py-1 rounded-full text-xs shadow-md">{packageName}</span>
               </div>
               <div className="flex justify-between pb-2">
-                <span className="text-[#1A0B2E]/60">عدد الأعمال المدخلة</span>
+                <span className="text-[#120B08]/60">عدد الأعمال المدخلة</span>
                 <span className="font-bold">{registration.stories?.length || 0} أعمال</span>
               </div>
               
-              <div className="pt-6 border-t border-[#1A0B2E]/10 mt-4">
+              <div className="pt-6 border-t border-[#120B08]/10 mt-4">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-[#1A0B2E]/60">رسوم التسجيل</span>
+                  <span className="text-[#120B08]/60">رسوم التسجيل</span>
                   <span className="font-bold">{packagePrice} ج.م</span>
                 </div>
               </div>
               
               <div className="pt-8 mt-4 flex flex-col items-center">
-                <span className="text-sm text-[#1A0B2E]/50 mb-2 uppercase tracking-widest font-bold">الإجمالي المطلوب</span>
-                <span className="text-6xl font-black text-[#1A0B2E] font-serif dir-ltr drop-shadow-sm">{packagePrice} EGP</span>
+                <span className="text-sm text-[#120B08]/50 mb-2 uppercase tracking-widest font-bold">الإجمالي المطلوب</span>
+                <span className="text-6xl font-black text-[#120B08] font-serif dir-ltr drop-shadow-sm">{packagePrice} EGP</span>
               </div>
             </div>
           </div>
@@ -138,12 +138,12 @@ export function PaymentPage() {
 
         {/* Payment Main Form (Deep Purple Card) */}
         <div className="md:col-span-3 order-1 md:order-2">
-          <div className="bg-[#1A0B2E] rounded-[2rem] p-8 md:p-12 border border-primary/30 shadow-[0_20px_50px_rgba(201,168,76,0.15)] relative h-full energy-border">
+          <div className="bg-[#120B08] rounded-[2rem] p-8 md:p-12 border border-primary/30 shadow-[0_20px_50px_rgba(201,168,76,0.15)] relative h-full energy-border">
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[80px] rounded-full pointer-events-none" />
             
             <div className="flex flex-col md:flex-row md:items-center gap-6 mb-8 border-b border-white/10 pb-8 relative z-10">
               <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center shrink-0 shadow-lg p-2">
-                <img src="https://hekayaty.com/wp-content/uploads/2023/12/InstaPay-Logo.png" alt="InstaPay" className="w-full h-full object-contain" onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.parentElement?.classList.add('glow-gold', 'text-primary', 'bg-[#1A0B2E]'); e.currentTarget.parentElement?.insertAdjacentHTML('beforeend', '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>'); }} />
+                <img src="https://hekayaty.com/wp-content/uploads/2023/12/InstaPay-Logo.png" alt="InstaPay" className="w-full h-full object-contain" onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.parentElement?.classList.add('glow-gold', 'text-primary', 'bg-[#120B08]'); e.currentTarget.parentElement?.insertAdjacentHTML('beforeend', '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>'); }} />
               </div>
               <div>
                 <h2 className="text-2xl md:text-3xl font-black text-foreground font-sans">الدفع عبر إنستاباي</h2>
@@ -220,4 +220,4 @@ export function PaymentPage() {
       </motion.div>
     </div>
   );
-}
+});

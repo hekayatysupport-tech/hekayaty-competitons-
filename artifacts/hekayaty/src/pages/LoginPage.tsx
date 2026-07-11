@@ -106,7 +106,7 @@ export function LoginPage() {
   return (
     <div className="min-h-[calc(100vh-80px)] flex items-center justify-center py-16 px-4 section-dark overflow-hidden relative font-sans" dir="rtl">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#10061e] via-[#1A0B2E] to-[#150824]" />
+      <div className="absolute inset-0 bg-[#0A0503]" />
       <div className="absolute inset-0 aurora-bg opacity-30 pointer-events-none" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
 

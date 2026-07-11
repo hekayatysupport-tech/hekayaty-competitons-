@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'wouter';
-import { Feather, Menu, X, LogOut, LogIn, Shield, User } from 'lucide-react';
+import { Menu, X, LogOut, LogIn, Shield, User, UserPlus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export const Layout = React.memo(function Layout({ children }: { children: React.ReactNode }) {
   const [location, setLocation] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, isAdmin, isLoading, signOut } = useAuth();
 
   const baseLinks = [
     { href: '/', label: 'الرئيسية' },
+    { href: '/#about', label: 'عن المسابقة' },
+    { href: '/#awards', label: 'الجوائز' },
+    { href: '/#terms', label: 'الشروط' },
+    { href: '/#faq', label: 'الأسئلة الشائعة' },
+    { href: '/#contact', label: 'تواصل معنا' },
   ];
 
   const adminLinks = isAdmin
@@ -34,90 +39,89 @@ export function Layout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
-      <header className="sticky top-0 z-50 w-full border-b" style={{ borderColor: 'rgba(201,168,76,0.12)', background: 'rgba(9,9,15,0.85)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }}>
-        <div className="container mx-auto px-6 h-20 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group outline-none">
-            <motion.div 
-              animate={{ boxShadow: ['0 0 10px rgba(201,168,76,0.1)', '0 0 25px rgba(201,168,76,0.4)', '0 0 10px rgba(201,168,76,0.1)'] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="w-10 h-10 rounded-full border border-primary/20 bg-primary/5 flex items-center justify-center text-primary group-hover:bg-primary/10 transition-all duration-300 relative"
-            >
-              <Feather className="w-5 h-5 relative z-10" />
-            </motion.div>
-            <div className="flex flex-col">
-              <span className="font-serif text-lg font-bold tracking-[0.2em] gold-text leading-none uppercase mt-1">Hekayaty</span>
-              <span className="text-[10px] text-muted-foreground/60 tracking-widest mt-1">AWARDS 2026</span>
-            </div>
+    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans" dir="rtl">
+      <header className="fixed top-0 z-50 w-full" style={{ background: 'linear-gradient(180deg, rgba(10,5,3,0.9) 0%, rgba(10,5,3,0.7) 50%, rgba(10,5,3,0) 100%)' }}>
+        <div className="container mx-auto px-8 h-24 flex items-center justify-between">
+          
+          {/* Logo */}
+          <Link href="/" className="flex flex-col outline-none z-50">
+            <span className="font-serif text-2xl font-bold tracking-[0.25em] gold-text uppercase">Hekayaty</span>
+            <span className="text-[10px] text-muted-foreground tracking-[0.3em] uppercase ml-1">AWARDS 2026</span>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-8">
             {links.map((link) => (
               <Link 
                 key={link.href} 
                 href={link.href}
-                className={`text-sm font-semibold transition-all duration-300 outline-none relative py-2 ${
+                className={`text-[15px] font-bold transition-all duration-300 outline-none relative py-2 ${
                   location === link.href 
-                    ? 'text-primary' 
-                    : 'text-foreground/60 hover:text-primary'
+                    ? 'gold-text' 
+                    : 'text-white/70 hover:text-[#D4AF37]'
                 }`}
               >
                 {link.label}
                 {location === link.href && (
                   <motion.div 
                     layoutId="nav-indicator"
-                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary rounded-full shadow-[0_0_8px_rgba(201,168,76,0.8)]"
+                    className="absolute -bottom-1 left-1/4 right-1/4 h-[2px] bg-[#D4AF37] rounded-full shadow-[0_0_8px_rgba(212,175,55,0.8)]"
                   />
                 )}
               </Link>
             ))}
+          </nav>
 
-            {/* Auth Buttons */}
+          {/* Desktop Auth Buttons */}
+          <div className="hidden lg:flex items-center gap-4">
             {!isLoading && (
               user ? (
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full">
+                <>
+                  <div className="flex items-center gap-2 px-4 py-2 bg-black/20 border border-primary/20 rounded-lg">
                     {isAdmin
                       ? <Shield className="w-4 h-4 text-primary" />
                       : <User className="w-4 h-4 text-primary" />
                     }
-                    <span className="text-xs text-foreground/70 font-medium max-w-[120px] truncate" dir="ltr">
+                    <span className="text-sm text-foreground/80 font-medium max-w-[120px] truncate" dir="ltr">
                       {user.email}
                     </span>
                   </div>
                   <button
                     onClick={handleSignOut}
-                    className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm font-bold text-foreground/70 hover:text-rose-400 hover:border-rose-400/30 transition-all"
+                    className="flex items-center gap-2 px-4 py-2 bg-black/20 border border-primary/20 rounded-lg text-sm font-bold text-foreground hover:text-rose-400 transition-all"
                   >
                     <LogOut className="w-4 h-4" />
                     خروج
                   </button>
-                </div>
+                </>
               ) : (
-                <div className="flex items-center gap-3">
+                <>
                   <Link
                     href="/login"
-                    className="flex items-center gap-2 px-5 py-2.5 bg-white/5 border border-white/10 rounded-full text-sm font-bold text-foreground/70 hover:text-primary hover:border-primary/30 transition-all"
+                    className="flex items-center gap-2 px-6 py-2.5 bg-black/20 border border-primary/30 rounded-lg text-sm font-bold text-white hover:bg-primary/10 transition-all"
                   >
-                    <LogIn className="w-4 h-4" />
                     تسجيل الدخول
+                    <LogIn className="w-4 h-4 mr-1" />
                   </Link>
                   <Link 
                     href="/register"
-                    className="gold-gradient text-primary-foreground px-6 py-2.5 rounded-full font-bold text-sm shadow-[0_4px_14px_rgba(201,168,76,0.1)] hover:glow-gold hover:-translate-y-0.5 transition-all shimmer-button"
+                    className="flex items-center gap-2 px-6 py-2.5 rounded-lg font-bold text-sm text-[#120B08] transition-all shimmer-button"
+                    style={{ background: 'linear-gradient(135deg, #E6C56A 0%, #D4AF37 50%, #B8860B 100%)' }}
                   >
+                    <UserPlus className="w-4 h-4 ml-1" />
                     سجّل الآن
                   </Link>
-                </div>
+                </>
               )
             )}
-          </nav>
+          </div>
 
           {/* Mobile Menu Button */}
           <button 
-            className="md:hidden relative z-50 min-w-[44px] min-h-[44px] flex items-center justify-center text-foreground/80 hover:text-primary transition-colors"
+            className="lg:hidden relative z-50 touch-target flex items-center justify-center text-foreground/80 hover:text-primary transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle Mobile Menu"
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -132,7 +136,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="md:hidden fixed inset-0 z-40 bg-[#09090F] flex flex-col pt-24 px-6"
+            className="lg:hidden fixed inset-0 z-40 bg-[#120B08] flex flex-col pt-32 px-8"
           >
             <div className="flex flex-col gap-6">
               {links.map((link) => (
@@ -148,7 +152,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 </Link>
               ))}
 
-              <div className="h-[1px] w-full bg-white/10 my-2" />
+              <div className="h-[1px] w-full bg-white/10 my-4" />
 
               {!isLoading && (
                 user ? (
@@ -173,16 +177,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     <Link
                       href="/login"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="flex items-center gap-3 min-h-[44px] text-xl font-bold text-foreground/70 hover:text-primary"
+                      className="flex items-center justify-center gap-3 min-h-[56px] text-lg font-bold text-white border border-primary/30 rounded-lg hover:bg-primary/10"
                     >
-                      <LogIn className="w-5 h-5" />
                       تسجيل الدخول
+                      <LogIn className="w-5 h-5" />
                     </Link>
                     <Link 
                       href="/register"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="gold-gradient text-primary-foreground px-6 min-h-[56px] flex items-center justify-center rounded-2xl font-bold text-lg glow-gold shimmer-button"
+                      className="flex items-center justify-center gap-3 min-h-[56px] rounded-lg font-bold text-lg text-[#120B08] shimmer-button mt-2"
+                      style={{ background: 'linear-gradient(135deg, #E6C56A 0%, #D4AF37 50%, #B8860B 100%)' }}
                     >
+                      <UserPlus className="w-5 h-5" />
                       سجّل الآن
                     </Link>
                   </>
@@ -193,15 +199,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
         )}
       </AnimatePresence>
 
-      <main className="flex-1 flex flex-col relative z-10">
+      <main className="flex-1 flex flex-col relative z-10 w-full">
         {children}
       </main>
 
-      <footer className="border-t border-white/5 bg-[#050508] py-24 mt-auto relative z-10">
+      <footer className="border-t border-white/5 bg-[#120B08] py-24 mt-auto relative z-10">
         <div className="container mx-auto px-6 text-center">
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <Feather className="w-6 h-6 text-primary" />
-            <span className="font-serif text-2xl font-bold tracking-[0.2em] uppercase mt-1 gold-text">Hekayaty</span>
+          <div className="flex flex-col items-center justify-center mb-8">
+            <span className="font-serif text-3xl font-bold tracking-[0.25em] gold-text uppercase">Hekayaty</span>
+            <span className="text-xs text-muted-foreground tracking-[0.3em] uppercase mt-2">AWARDS 2026</span>
           </div>
           <p className="text-muted-foreground max-w-md mx-auto mb-12 text-sm leading-relaxed">
             نحتفي بالقصص التي تصيغ عالمنا. منصة الجوائز الأدبية الأرقى في الوطن العربي.
@@ -214,4 +220,4 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </footer>
     </div>
   );
-}
+});

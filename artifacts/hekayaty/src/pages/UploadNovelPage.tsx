@@ -168,7 +168,7 @@ export function UploadNovelPage() {
 
   return (
     <div className="min-h-[calc(100vh-80px)] py-24 px-4 relative flex items-center justify-center section-dark overflow-hidden font-sans">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#10061e] via-[#1A0B2E] to-[#150824]" />
+      <div className="absolute inset-0 bg-[#0A0503]" />
       <div className="absolute inset-0 aurora-bg opacity-30 pointer-events-none" />
       
       <motion.div 
@@ -184,7 +184,7 @@ export function UploadNovelPage() {
           <p className="text-white/60 text-lg">الخطوة الأخيرة لدخول المنافسة الرسمية لجوائز حكايتي</p>
         </div>
 
-        <div className="bg-[#1A0B2E] rounded-[2rem] p-8 md:p-12 border border-primary/30 shadow-[0_20px_50px_rgba(201,168,76,0.15)] relative energy-border">
+        <div className="bg-[#120B08] rounded-[2rem] p-8 md:p-12 border border-primary/30 shadow-[0_20px_50px_rgba(201,168,76,0.15)] relative energy-border">
           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[80px] rounded-full pointer-events-none" />
 
           {/* Story Tabs (If multiple) */}

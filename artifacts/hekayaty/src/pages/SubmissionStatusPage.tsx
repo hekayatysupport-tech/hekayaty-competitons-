@@ -171,7 +171,7 @@ export function SubmissionStatusPage() {
   return (
     <div className="min-h-[calc(100vh-80px)] py-12 px-4 relative section-dark overflow-hidden font-sans" dir="rtl">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#06020f] via-[#130825] to-[#0a0518]" />
+      <div className="absolute inset-0 bg-[#0A0503]" />
       <div className="absolute inset-0 aurora-bg opacity-15 pointer-events-none" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-primary/4 blur-[150px] rounded-full pointer-events-none" />
 

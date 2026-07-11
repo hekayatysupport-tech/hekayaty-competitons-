@@ -27,11 +27,13 @@ const formSchema = z.object({
       }),
       description: z.string().max(500, { message: 'الوصف يجب ألا يتجاوز 500 حرف' }).optional()
     })
-  ).min(1, 'يجب إضافة قصة واحدة على الأقل').max(3, 'لا يمكن إضافة أكثر من 3 قصص'),
+  ).min(1, 'يجب إضافة قصة واحدة على الأقل').max(1, 'لا يمكن إضافة أكثر من قصة واحدة'),
   agreement: z.boolean().refine(val => val === true, { message: 'يجب الموافقة على الشروط والأحكام' })
 });
 
-export function RegisterPage() {
+import React from 'react';
+
+export const RegisterPage = React.memo(function RegisterPage() {
   const [, setLocation] = useLocation();
   const { setPending, completeRegistration } = useRegistrations();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -57,7 +59,7 @@ export function RegisterPage() {
   });
 
   const selectedPackage = form.watch('packageType');
-  const maxStories = selectedPackage === 'package_a' ? 1 : 3;
+  const maxStories = 1;
 
   const nextStep = async () => {
     let isValid = false;
@@ -134,12 +136,14 @@ export function RegisterPage() {
 
   function onInvalidSubmit() {
     const errors = form.formState.errors;
+    console.log("Form validation errors:", errors);
     if (errors.agreement) {
       toast.error('يجب الموافقة على الشروط والأحكام أولاً');
     } else if (errors.stories) {
       toast.error('يرجى ملء جميع حقول القصص بشكل صحيح');
     } else {
-      toast.error('يرجى ملء جميع الحقول المطلوبة');
+      const errorKeys = Object.keys(errors).join(', ');
+      toast.error(`يرجى ملء جميع الحقول المطلوبة. الحقول الناقصة: ${errorKeys}`);
     }
   }
 
@@ -161,7 +165,7 @@ export function RegisterPage() {
     <div className="min-h-[calc(100vh-80px)] py-24 px-4 relative flex flex-col items-center section-dark overflow-hidden font-sans">
       
       {/* Cinematic Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#10061e] via-[#1A0B2E] to-[#150824]" />
+      <div className="absolute inset-0 bg-[#0A0503]" />
       <div className="absolute inset-0 aurora-bg opacity-40" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
 
@@ -239,7 +243,7 @@ export function RegisterPage() {
                   >
                     <div className="text-center mb-12">
                       <h3 className="text-2xl font-bold text-foreground">اختر باقة المشاركة</h3>
-                      <p className="text-muted-foreground text-sm mt-2">اختر الباقة التي تناسب عدد أعمالك الأدبية</p>
+                      <p className="text-muted-foreground text-sm mt-2">اختر الباقة التي تناسب حجم عملك الأدبي</p>
                     </div>
 
                     <FormField
@@ -251,37 +255,37 @@ export function RegisterPage() {
                             {/* Package A (Ivory) */}
                             <label className={`
                               cursor-pointer relative overflow-hidden rounded-[2rem] p-8 border-2 transition-all duration-300
-                              ${field.value === 'package_a' ? 'border-[#1A0B2E] bg-white shadow-[0_10px_30px_rgba(0,0,0,0.2)]' : 'border-[#1A0B2E]/10 bg-white/90 hover:bg-white text-[#1A0B2E] opacity-70 hover:opacity-100'}
+                              ${field.value === 'package_a' ? 'border-[#120B08] bg-white shadow-[0_10px_30px_rgba(0,0,0,0.2)]' : 'border-[#120B08]/10 bg-white/90 hover:bg-white text-[#120B08] opacity-70 hover:opacity-100'}
                             `}>
                               <input type="radio" value="package_a" className="hidden" checked={field.value === 'package_a'} onChange={() => field.onChange('package_a')} />
-                              {field.value === 'package_a' && <div className="absolute top-4 left-4"><CheckCircle2 className="text-[#1A0B2E] w-6 h-6" /></div>}
+                              {field.value === 'package_a' && <div className="absolute top-4 left-4"><CheckCircle2 className="text-[#120B08] w-6 h-6" /></div>}
                               
-                              <h4 className="text-xl font-bold text-[#1A0B2E] mb-2 uppercase tracking-wider">الباقة الفردية</h4>
-                              <div className="text-4xl font-black text-[#1A0B2E] font-serif mb-4 flex items-baseline gap-1">100 <span className="text-lg font-bold">ج.م</span></div>
+                              <h4 className="text-xl font-bold text-[#120B08] mb-2 uppercase tracking-wider">باقة ما يصل إلى ٢٥,٠٠٠ كلمة</h4>
+                              <div className="text-4xl font-black text-[#120B08] font-serif mb-4 flex items-baseline gap-1">100 <span className="text-lg font-bold">ج.م</span></div>
                               
-                              <ul className="space-y-3 text-sm text-[#1A0B2E]/70 font-medium">
-                                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-[#1A0B2E]" /> عمل أدبي واحد</li>
-                                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-[#1A0B2E]" /> شهادة مشاركة رقمية</li>
-                                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-[#1A0B2E]" /> تقييم لجنة التحكيم</li>
+                              <ul className="space-y-3 text-sm text-[#120B08]/70 font-medium">
+                                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-[#120B08]" /> عمل أدبي واحد لا يتجاوز ٢٥,٠٠٠ كلمة</li>
+                                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-[#120B08]" /> شهادة مشاركة رقمية</li>
+                                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-[#120B08]" /> تقييم لجنة التحكيم</li>
                               </ul>
                             </label>
 
                             {/* Package B (Deep Purple) */}
                             <label className={`
                               cursor-pointer relative overflow-hidden rounded-[2rem] p-8 border-2 transition-all duration-300
-                              ${field.value === 'package_b' ? 'border-primary bg-[#1A0B2E] shadow-[0_10px_30px_rgba(201,168,76,0.2)] energy-border' : 'border-primary/20 bg-[#1A0B2E]/80 hover:bg-[#1A0B2E] hover:border-primary/50 opacity-70 hover:opacity-100'}
+                              ${field.value === 'package_b' ? 'border-primary bg-[#120B08] shadow-[0_10px_30px_rgba(212,175,55,0.2)] energy-border' : 'border-primary/20 bg-[#120B08]/80 hover:bg-[#120B08] hover:border-primary/50 opacity-70 hover:opacity-100'}
                             `}>
-                              <div className="absolute top-4 right-4 gold-gradient text-[#1A0B2E] px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">الأكثر طلباً</div>
+                              <div className="absolute top-4 right-4 gold-gradient text-[#120B08] px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">الأكثر طلباً</div>
                               <input type="radio" value="package_b" className="hidden" checked={field.value === 'package_b'} onChange={() => field.onChange('package_b')} />
                               {field.value === 'package_b' && <div className="absolute top-4 left-4"><CheckCircle2 className="text-primary w-6 h-6" /></div>}
                               
-                              <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-wider mt-6">الباقة المتعددة</h4>
+                              <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-wider mt-6">باقة أكثر من ٣٥,٠٠٠ كلمة</h4>
                               <div className="text-4xl font-black gold-text font-serif mb-4 flex items-baseline gap-1">150 <span className="text-lg font-bold text-white/50">ج.م</span></div>
                               
                               <ul className="space-y-3 text-sm text-white/70 font-medium">
-                                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary" /> حتى ٣ أعمال أدبية</li>
+                                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary" /> عمل أدبي واحد يزيد عن ٣٥,٠٠٠ كلمة</li>
                                 <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary" /> شهادة مشاركة رقمية</li>
-                                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary" /> فرصة أكبر للفوز</li>
+                                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary" /> تقييم لجنة التحكيم</li>
                               </ul>
                             </label>
                           </div>
@@ -294,11 +298,10 @@ export function RegisterPage() {
                       <button 
                         type="button" 
                         onClick={() => {
-                          // Adjust fields array based on package choice
+                          // Both packages allow only 1 novel
                           const currentLen = fields.length;
-                          const max = selectedPackage === 'package_a' ? 1 : 3;
-                          if (currentLen > max) {
-                            for(let i=currentLen-1; i>=max; i--) remove(i);
+                          if (currentLen > 1) {
+                            for(let i=currentLen-1; i>=1; i--) remove(i);
                           }
                           nextStep();
                         }}
@@ -466,15 +469,7 @@ export function RegisterPage() {
                     <div className="space-y-8">
                       {fields.map((field, index) => (
                         <div key={field.id} className="glass-card-light border border-white/10 rounded-3xl p-8 relative">
-                          {fields.length > 1 && (
-                            <button
-                              type="button"
-                              onClick={() => remove(index)}
-                              className="absolute top-4 left-4 p-2 text-muted-foreground hover:text-rose-500 hover:bg-rose-500/10 rounded-full transition-colors"
-                            >
-                              <Trash2 className="w-5 h-5" />
-                            </button>
-                          )}
+
                           <div className="mb-6 text-primary font-bold text-lg">العمل الأدبي #{index + 1}</div>
                           
                           <div className="space-y-8">
@@ -552,16 +547,7 @@ export function RegisterPage() {
                       ))}
                     </div>
 
-                    {fields.length < maxStories && (
-                      <button
-                        type="button"
-                        onClick={() => append({ title: '', category: 'رومانسية', description: '' })}
-                        className="w-full py-6 border-2 border-dashed border-primary/30 text-primary font-bold rounded-3xl flex items-center justify-center gap-2 hover:bg-primary/10 hover:border-primary/50 transition-colors"
-                      >
-                        <Plus className="w-5 h-5" />
-                        إضافة قصة أخرى
-                      </button>
-                    )}
+
 
                     <div className="pt-8 border-t border-white/10">
                       <FormField
@@ -621,4 +607,4 @@ export function RegisterPage() {
       </div>
     </div>
   );
-}
+});

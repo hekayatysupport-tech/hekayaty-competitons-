@@ -148,7 +148,7 @@ export function SuccessPage() {
     <div className="min-h-[calc(100vh-80px)] py-16 px-4 relative flex items-center justify-center overflow-hidden section-dark font-sans">
       
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#10061e] via-[#1A0B2E] to-[#150824]" />
+      <div className="absolute inset-0 bg-[#0A0503]" />
       <div className="absolute inset-0 aurora-bg opacity-30 pointer-events-none" />
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
         <div className="w-[700px] h-[700px] bg-primary/10 blur-[100px] rounded-full mix-blend-screen" />
@@ -172,7 +172,7 @@ export function SuccessPage() {
         transition={{ duration: 0.6, type: 'spring', bounce: 0.4 }}
         className="w-full max-w-2xl relative z-10"
       >
-        <div className="bg-[#1A0B2E] border border-primary/30 rounded-[2.5rem] shadow-[0_20px_50px_rgba(201,168,76,0.15)] glow-gold relative overflow-hidden energy-border">
+        <div className="bg-[#120B08] border border-primary/30 rounded-[2.5rem] shadow-[0_20px_50px_rgba(201,168,76,0.15)] glow-gold relative overflow-hidden energy-border">
           <div className="absolute top-0 left-0 w-full h-2 gold-gradient" />
 
           {/* Header */}
